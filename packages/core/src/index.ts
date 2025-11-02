@@ -14,7 +14,13 @@ import type {
   FileTypeStatistics,
   RefactoringRecommendation,
   ProjectHealthScore,
+  SupportedLanguage,
+  LanguageAnalyzer,
 } from './types.js';
+import { detectLanguage, getLanguageAnalyzer } from './languages/index.js';
+import { classifyPowerShellFileType } from './patterns/powershell.js';
+import { classifyCSharpFileType } from './patterns/csharp.js';
+import { classifyRustFileType } from './patterns/rust.js';
 
 // File Type Classification System
 export const FILE_TYPE_PATTERNS = {
@@ -57,32 +63,161 @@ export const FILE_TYPE_PATTERNS = {
 
 /**
  * Core analysis engine for architectural discipline
+ * 
+ * This class implements LanguageAnalyzer for TypeScript/JavaScript compatibility
  */
-export class ArchitecturalAnalyzer {
+export class ArchitecturalAnalyzer implements LanguageAnalyzer {
+  detectLanguage(filePath: string, content?: string): SupportedLanguage | null {
+    return detectLanguage(filePath, content);
+  }
+
+  extractFunctions(content: string) {
+    // TypeScript/JavaScript function extraction
+    const functions: Array<{
+      name: string;
+      line: number;
+      lines: number;
+      content: string;
+      signature: string;
+    }> = [];
+
+    const lines = content.split('\n');
+    let i = 0;
+
+    while (i < lines.length) {
+      const line = lines[i];
+
+      // Detect function start
+      if (
+        line.match(/^(export\s+)?(async\s+)?function\s+\w+/) ||
+        line.match(/^(export\s+)?(async\s+)?\w+\s*\([^)]*\)\s*[:=]/)
+      ) {
+        const startLine = i;
+        const signature = line.trim();
+        const name = this.extractFunctionName(signature);
+
+        // Find function end by counting braces
+        let braceCount = 0;
+        let endLine = i;
+
+        for (let j = i; j < lines.length; j++) {
+          const currentLine = lines[j];
+          braceCount += (currentLine.match(/\{/g) || []).length;
+          braceCount -= (currentLine.match(/\}/g) || []).length;
+
+          if (braceCount === 0 && currentLine.includes('}')) {
+            endLine = j;
+            break;
+          }
+        }
+
+        const functionContent = lines.slice(startLine, endLine + 1).join('\n');
+
+        functions.push({
+          name,
+          line: startLine + 1,
+          lines: endLine - startLine + 1,
+          content: functionContent,
+          signature,
+        });
+
+        i = endLine + 1;
+      } else {
+        i++;
+      }
+    }
+
+    return functions;
+  }
+
+  extractDependencies(content: string): string[] {
+    const imports: string[] = [];
+    const importRegex = /import.*from\s+['"]([^'"]+)['"]/g;
+    let match;
+
+    while ((match = importRegex.exec(content)) !== null) {
+      imports.push(match[1]);
+    }
+
+    return imports;
+  }
+
+  extractSideEffects(content: string): string[] {
+    const sideEffects: string[] = [];
+
+    if (content.includes('console.log')) sideEffects.push('logging');
+    if (content.includes('this.')) sideEffects.push('state-mutation');
+    if (content.includes('global')) sideEffects.push('global-access');
+    if (content.includes('process.')) sideEffects.push('process-access');
+    if (content.includes('fs.')) sideEffects.push('file-system');
+    if (content.includes('fetch(') || content.includes('axios.')) sideEffects.push('network');
+
+    return sideEffects;
+  }
+
+  extractReturnType(signature: string): string {
+    const returnMatch = signature.match(/\)\s*:\s*(\w+)/);
+    return returnMatch ? returnMatch[1] : 'any';
+  }
+
+  countParameters(signature: string): number {
+    const paramMatch = signature.match(/\(([^)]*)\)/);
+    if (!paramMatch) return 0;
+
+    const params = paramMatch[1].split(',').filter((p) => p.trim());
+    return params.length;
+  }
+
+  extractFunctionName(signature: string): string {
+    const patterns = [
+      /function\s+(\w+)/,
+      /(\w+)\s*\([^)]*\)\s*[:=]/,
+      /(\w+)\s*\([^)]*\)\s*[:=]\s*async\s+function/,
+    ];
+
+    for (const pattern of patterns) {
+      const match = signature.match(pattern);
+      if (match) {
+        return match[1];
+      }
+    }
+
+    return 'anonymous';
+  }
   /**
    * Analyze a single file and extract comprehensive metrics
    */
   analyzeFile(filePath: string, content: string): FileMetrics {
     const lines = content.split('\n');
-    const fileType = this.classifyFileType(filePath, content);
-
+    
+    // Detect language
+    const language = detectLanguage(filePath, content) || 'typescript';
+    const languageAnalyzer = getLanguageAnalyzer(filePath, content);
+    
+    // Use language-specific file type classification
+    const fileType = this.classifyFileType(filePath, content, language);
+    
+    // Use language-specific analyzer if available, otherwise fall back to TypeScript patterns
+    const analyzer = languageAnalyzer || this;
+    
     const metrics: FileMetrics = {
       file: filePath,
+      language,
       fileType,
       lines: lines.length,
       functions: [],
-      complexity: this.calculateComplexity(content),
+      complexity: analyzer.calculateComplexity(content),
       purity: 0,
-      dependencies: this.extractDependencies(content),
-      responsibilities: this.extractResponsibilities(content),
+      dependencies: analyzer.extractDependencies(content),
+      responsibilities: this.extractResponsibilities(content, language),
     };
 
     // Extract function information with enhanced analysis
-    const functions = this.extractFunctions(content);
+    const functions = analyzer.extractFunctions(content);
     metrics.functions = functions.map((func) => {
-      const sideEffects = this.extractSideEffects(func.content);
-      const parameters = this.countParameters(func.signature);
-      const complexity = this.calculateComplexity(func.content);
+      const sideEffects = analyzer.extractSideEffects(func.content);
+      const parameters = analyzer.countParameters(func.signature);
+      const complexity = analyzer.calculateComplexity(func.content);
 
       const funcMetrics: FunctionMetrics = {
         name: func.name,
@@ -91,7 +226,7 @@ export class ArchitecturalAnalyzer {
         complexity,
         purity: 0,
         parameters,
-        returnType: this.extractReturnType(func.signature),
+        returnType: analyzer.extractReturnType(func.signature),
         sideEffects,
       };
 
@@ -111,7 +246,21 @@ export class ArchitecturalAnalyzer {
   /**
    * Classify file type based on path and content analysis
    */
-  classifyFileType(filePath: string, content: string): FileType {
+  classifyFileType(filePath: string, content: string, language?: SupportedLanguage): FileType {
+    // Use language-specific classification if available
+    const detectedLanguage = language || detectLanguage(filePath, content);
+    
+    if (detectedLanguage === 'powershell') {
+      return classifyPowerShellFileType(filePath, content);
+    }
+    if (detectedLanguage === 'csharp') {
+      return classifyCSharpFileType(filePath, content);
+    }
+    if (detectedLanguage === 'rust') {
+      return classifyRustFileType(filePath, content);
+    }
+    
+    // Default TypeScript/JavaScript classification
     const fileName = path.basename(filePath);
     const dirName = path.dirname(filePath);
 
@@ -361,14 +510,32 @@ export class ArchitecturalAnalyzer {
   /**
    * Extract responsibilities from file content
    */
-  extractResponsibilities(content: string): string[] {
+  extractResponsibilities(content: string, language?: SupportedLanguage): string[] {
     const responsibilities: string[] = [];
+    const lang = language || 'typescript';
 
-    if (content.includes('createMachine')) responsibilities.push('state-management');
-    if (content.includes('class')) responsibilities.push('object-oriented');
-    if (content.includes('async')) responsibilities.push('asynchronous');
-    if (content.includes('export')) responsibilities.push('module-export');
-    if (content.includes('test') || content.includes('expect')) responsibilities.push('testing');
+    if (lang === 'typescript' || lang === 'javascript') {
+      if (content.includes('createMachine')) responsibilities.push('state-management');
+      if (content.includes('class')) responsibilities.push('object-oriented');
+      if (content.includes('async')) responsibilities.push('asynchronous');
+      if (content.includes('export')) responsibilities.push('module-export');
+      if (content.includes('test') || content.includes('expect')) responsibilities.push('testing');
+    } else if (lang === 'powershell') {
+      if (content.match(/function\s+\w+-\w+/)) responsibilities.push('cmdlet');
+      if (content.includes('module')) responsibilities.push('module-export');
+      if (content.includes('Describe') || content.includes('It ')) responsibilities.push('testing');
+      if (content.includes('param(')) responsibilities.push('parameter-handling');
+    } else if (lang === 'csharp') {
+      if (content.includes('class ')) responsibilities.push('object-oriented');
+      if (content.includes('async ') || content.includes('Task')) responsibilities.push('asynchronous');
+      if (content.includes('interface ')) responsibilities.push('interface-definition');
+      if (content.includes('[Test]') || content.includes('TestMethod')) responsibilities.push('testing');
+    } else if (lang === 'rust') {
+      if (content.includes('pub struct ')) responsibilities.push('data-structure');
+      if (content.includes('impl ')) responsibilities.push('implementation');
+      if (content.includes('async ') || content.includes('await')) responsibilities.push('asynchronous');
+      if (content.includes('#[test]')) responsibilities.push('testing');
+    }
 
     return responsibilities;
   }
@@ -577,3 +744,5 @@ export class ArchitecturalAnalyzer {
 // Re-export types and constants for external use
 export * from './types';
 export { FILE_TYPE_PATTERNS };
+export { detectLanguage, getLanguageAnalyzer, getAllAnalyzers } from './languages/index.js';
+export { TypeScriptAnalyzer, PowerShellAnalyzer, CSharpAnalyzer, RustAnalyzer } from './languages/index.js';

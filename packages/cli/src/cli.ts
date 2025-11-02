@@ -127,17 +127,40 @@ async function performAnalysis(srcPath: string, ignorePatterns?: string): Promis
   const ignore = ignorePatterns ? ignorePatterns.split(',') : [
     '**/*.test.ts',
     '**/*.spec.ts',
+    '**/*.Tests.ps1',
+    '**/*Tests.cs',
+    '**/*test.rs',
     '**/node_modules/**',
     '**/dist/**',
     '**/build/**',
+    '**/bin/**',
+    '**/obj/**',
+    '**/target/**',
   ];
 
-  const files = await glob(`${srcPath}/**/*.ts`, { ignore });
+  // Support multiple file extensions
+  const filePatterns = [
+    `${srcPath}/**/*.ts`,
+    `${srcPath}/**/*.tsx`,
+    `${srcPath}/**/*.js`,
+    `${srcPath}/**/*.jsx`,
+    `${srcPath}/**/*.ps1`,
+    `${srcPath}/**/*.psm1`,
+    `${srcPath}/**/*.cs`,
+    `${srcPath}/**/*.rs`,
+  ];
+
+  const allFiles: string[] = [];
+  for (const pattern of filePatterns) {
+    const files = await glob(pattern, { ignore });
+    allFiles.push(...files);
+  }
+
   const analyzer = new ArchitecturalAnalyzer();
   
   const metrics: FileMetrics[] = [];
   
-  for (const file of files) {
+  for (const file of allFiles) {
     try {
       const content = await fs.readFile(file, 'utf-8');
       const fileMetrics = analyzer.analyzeFile(file, content);
@@ -192,6 +215,7 @@ function printAnalysisReport(analysis: StatisticalAnalysis): void {
 
     analysis.outliers.forEach((outlier) => {
       console.log(`\n   📁 ${outlier.file}`);
+      console.log(`      Language: ${outlier.language}`);
       console.log(`      Type: ${outlier.fileType.category}-${outlier.fileType.subcategory}`);
       console.log(
         `      Lines: ${outlier.lines} (expected: ${outlier.fileType.expectedSizeRange[0]}-${outlier.fileType.expectedSizeRange[1]})`

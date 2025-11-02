@@ -6,13 +6,15 @@ A comprehensive toolkit for enforcing sustainable software architecture patterns
 
 The Architectural Discipline Package provides a complete solution for maintaining high-quality, maintainable software architecture across projects of any size. It combines statistical analysis, ESLint integration, CLI tooling, and project templates to create a unified approach to architectural excellence.
 
+**Multi-Language Support**: ADP now supports analysis for multiple programming languages including JavaScript/TypeScript, PowerShell, C#, and Rust, allowing you to apply the same architectural discipline principles across your entire codebase.
+
 ## 📦 Packages
 
 ### Core Packages
 
-- **`@architectural-discipline/core`** - Statistical analysis engine and rule definitions
-- **`@architectural-discipline/eslint-plugin`** - ESLint plugin for architectural rules
-- **`@architectural-discipline/cli`** - Command-line interface for analysis and refactoring
+- **`@architectural-discipline/core`** - Statistical analysis engine and rule definitions with multi-language support
+- **`@architectural-discipline/eslint-plugin`** - ESLint plugin for architectural rules (TypeScript/JavaScript)
+- **`@architectural-discipline/cli`** - Command-line interface for analysis and refactoring across all supported languages
 
 ### Project Templates
 
@@ -39,8 +41,11 @@ npm install @architectural-discipline/eslint-plugin
 ### Basic Usage
 
 ```bash
-# Analyze your project
+# Analyze your project (supports multiple languages automatically)
 architectural-discipline analyze
+
+# Analyze specific path
+architectural-discipline analyze --path src
 
 # Generate refactoring recommendations
 architectural-discipline recommend
@@ -48,6 +53,17 @@ architectural-discipline recommend
 # Create a new project with architectural discipline
 architectural-discipline create my-project --template web-app
 ```
+
+### Multi-Language Analysis
+
+The CLI automatically detects and analyzes files from supported languages:
+
+- **TypeScript/JavaScript**: `.ts`, `.tsx`, `.js`, `.jsx`
+- **PowerShell**: `.ps1`, `.psm1`
+- **C#**: `.cs`, `.csx`
+- **Rust**: `.rs`
+
+Analysis results include language-specific metrics and recommendations tailored to each language's conventions.
 
 ### ESLint Integration
 
@@ -86,10 +102,17 @@ packages/
 
 ## 📊 Features
 
+### Multi-Language Support
+- **JavaScript/TypeScript**: Full support with ESLint integration
+- **PowerShell**: Analysis for `.ps1`, `.psm1`, and module files
+- **C#**: Analysis for `.cs` and `.csx` files with project structure awareness
+- **Rust**: Analysis for `.rs` files with crate and module understanding
+- **Unified Metrics**: Same architectural principles applied consistently across all languages
+
 ### Intelligent Analysis
-- **Statistical Analysis**: Analyzes codebase patterns and identifies outliers
-- **Complexity Metrics**: Measures cyclomatic complexity and cognitive load
-- **Purity Scoring**: Evaluates function purity and side effects
+- **Statistical Analysis**: Analyzes codebase patterns and identifies outliers per language
+- **Complexity Metrics**: Measures cyclomatic complexity and cognitive load (language-specific)
+- **Purity Scoring**: Evaluates function purity and side effects (language-aware)
 - **Modularity Assessment**: Analyzes module cohesion and coupling
 
 ### Automated Recommendations
@@ -122,6 +145,7 @@ The Architectural Discipline Package is built on the principle that **sustainabl
 ## 📚 Documentation
 
 - [Getting Started](docs/getting-started.md)
+- [Multi-Language Usage](docs/multi-language-usage.md) - Guide for using ADP with PowerShell, C#, Rust, and more
 - [Core Concepts](docs/core-concepts.md)
 - [ESLint Plugin](docs/eslint-plugin.md)
 - [CLI Reference](docs/cli-reference.md)
