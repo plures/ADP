@@ -65,6 +65,18 @@ architectural-discipline recommend
 
 # Create a new project with architectural discipline
 architectural-discipline create my-project --template web-app
+
+# List all available templates
+architectural-discipline create --list-templates
+
+# Create PowerShell module
+architectural-discipline create my-module --template powershell-module
+
+# Create C# library
+architectural-discipline create my-lib --template csharp-library
+
+# Create Rust CLI
+architectural-discipline create my-cli --template rust-cli
 ```
 
 ### Multi-Language Analysis

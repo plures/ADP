@@ -38,3 +38,14 @@
 - [x] Unit tests for TypeScript analyzer
 - [ ] Integration tests for multi-language analysis (can be added with CI/CD setup)
 
+## Templates
+- [x] PowerShell Module template created
+- [x] PowerShell CLI template created
+- [x] C# Library template created
+- [x] C# Console template created
+- [x] Rust Library template created
+- [x] Rust CLI template created
+- [x] CLI template creation system implemented
+- [x] Template variable replacement working
+- [x] Template listing command added
+
