@@ -1,0 +1,21 @@
+[package]
+name = "{{name}}"
+version = "1.0.0"
+edition = "2021"
+authors = ["{{author}}"]
+description = "CLI application with architectural discipline"
+license = "MIT"
+repository = ""
+
+[[bin]]
+name = "{{name}}"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4.0", features = ["derive"] }
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+

@@ -18,12 +18,25 @@ The Architectural Discipline Package provides a complete solution for maintainin
 
 ### Project Templates
 
+#### TypeScript/JavaScript Templates
 - **`@architectural-discipline/template-vscode-extension`** - VS Code extension template
 - **`@architectural-discipline/template-web-app`** - Web application template
 - **`@architectural-discipline/template-mobile-app`** - Mobile application template
 - **`@architectural-discipline/template-cli-tool`** - CLI tool template
 - **`@architectural-discipline/template-library`** - Library template
 - **`@architectural-discipline/template-api-service`** - API service template
+
+#### PowerShell Templates
+- **`powershell-module`** - PowerShell module template (.psm1, .psd1)
+- **`powershell-cli`** - PowerShell CLI script template (.ps1)
+
+#### C# Templates
+- **`csharp-library`** - C# class library template (.csproj)
+- **`csharp-console`** - C# console application template
+
+#### Rust Templates
+- **`rust-library`** - Rust library template (lib.rs)
+- **`rust-cli`** - Rust CLI binary template (main.rs)
 
 ## 🚀 Quick Start
 

@@ -10,8 +10,12 @@ import chalk from 'chalk';
 import { glob } from 'glob';
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 import { ArchitecturalAnalyzer, FILE_TYPE_PATTERNS } from '@architectural-discipline/core';
 import type { StatisticalAnalysis, FileMetrics } from '@architectural-discipline/core';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const program = new Command();
 
@@ -102,8 +106,14 @@ program
   .argument('<name>', 'Project name')
   .option('-t, --template <template>', 'Project template', 'web-app')
   .option('-d, --directory <dir>', 'Target directory')
+  .option('--list-templates', 'List available templates')
   .action(async (name, options) => {
     try {
+      if (options.listTemplates) {
+        listTemplates();
+        return;
+      }
+      
       console.log(chalk.blue(`🚀 Creating ${options.template} project: ${name}`));
       
       const targetDir = options.directory || name;
@@ -111,14 +121,56 @@ program
       
       console.log(chalk.green(`✅ Project created successfully in ${targetDir}`));
       console.log(chalk.yellow('📚 Next steps:'));
-      console.log(`   cd ${targetDir}`);
-      console.log('   npm install');
-      console.log('   npm run dev');
+      
+      // Language-specific next steps
+      if (options.template.startsWith('powershell')) {
+        console.log(`   cd ${targetDir}`);
+        console.log('   Import-Module .\\{{name}}.psd1');
+      } else if (options.template.startsWith('csharp')) {
+        console.log(`   cd ${targetDir}`);
+        console.log('   dotnet restore');
+        console.log('   dotnet build');
+      } else if (options.template.startsWith('rust')) {
+        console.log(`   cd ${targetDir}`);
+        console.log('   cargo build');
+        console.log('   cargo test');
+      } else {
+        console.log(`   cd ${targetDir}`);
+        console.log('   npm install');
+        console.log('   npm run dev');
+      }
     } catch (error) {
       console.error(chalk.red('❌ Project creation failed:'), error);
       process.exit(1);
     }
   });
+
+/**
+ * List available templates
+ */
+function listTemplates(): void {
+  console.log(chalk.blue('\n📦 Available Templates:\n'));
+  
+  console.log(chalk.yellow('TypeScript/JavaScript:'));
+  console.log('  web-app              - Web application template');
+  console.log('  library               - Library template');
+  console.log('  cli-tool              - CLI tool template');
+  console.log('  api-service           - API service template');
+  console.log('  vscode-extension     - VS Code extension template');
+  console.log('  mobile-app            - Mobile application template\n');
+  
+  console.log(chalk.yellow('PowerShell:'));
+  console.log('  powershell-module     - PowerShell module template');
+  console.log('  powershell-cli       - PowerShell CLI script template\n');
+  
+  console.log(chalk.yellow('C#:'));
+  console.log('  csharp-library       - C# class library template');
+  console.log('  csharp-console       - C# console application template\n');
+  
+  console.log(chalk.yellow('Rust:'));
+  console.log('  rust-library         - Rust library template');
+  console.log('  rust-cli             - Rust CLI binary template\n');
+}
 
 /**
  * Perform architectural analysis
@@ -280,13 +332,152 @@ function printRecommendations(recommendations: any[]): void {
  * Create project from template
  */
 async function createProject(name: string, template: string, targetDir: string): Promise<void> {
-  // This would integrate with the template system
   console.log(chalk.yellow(`📋 Template: ${template}`));
   console.log(chalk.yellow(`📁 Directory: ${targetDir}`));
   
-  // For now, just create a basic structure
-  await fs.ensureDir(targetDir);
+  // Check if template exists
+  // Templates are in packages/templates relative to the monorepo root
+  // When CLI is installed, we'll need to use a different approach
+  // For now, try relative to CLI package or use process.cwd() for monorepo development
+  const possiblePaths = [
+    path.join(__dirname, '../../templates', template),
+    path.join(process.cwd(), 'packages/templates', template),
+    path.resolve('./packages/templates', template),
+  ];
   
+  let templatePath = '';
+  let templateExists = false;
+  for (const possiblePath of possiblePaths) {
+    if (await fs.pathExists(possiblePath)) {
+      templatePath = possiblePath;
+      templateExists = true;
+      break;
+    }
+  }
+  
+  if (templateExists) {
+    // Copy template files
+    const templateDir = path.join(templatePath, 'template');
+    if (await fs.pathExists(templateDir)) {
+      await fs.copy(templateDir, targetDir);
+      console.log(chalk.green('✅ Template files copied'));
+      
+      // Replace template variables
+      await replaceTemplateVariables(targetDir, name, template);
+    }
+  } else {
+    // Create basic structure for unsupported templates
+    await fs.ensureDir(targetDir);
+    console.log(chalk.yellow('⚠️  Template not found, creating basic structure'));
+    
+    // Create basic package.json or project file based on language
+    if (template.startsWith('powershell')) {
+      await createPowerShellProject(name, targetDir, template);
+    } else if (template.startsWith('csharp')) {
+      await createCSharpProject(name, targetDir, template);
+    } else if (template.startsWith('rust')) {
+      await createRustProject(name, targetDir, template);
+    } else {
+      await createTypeScriptProject(name, targetDir, template);
+    }
+  }
+  
+  // Create .adp-config.json if it doesn't exist
+  const configPath = path.join(targetDir, '.adp-config.json');
+  if (!(await fs.pathExists(configPath))) {
+    await fs.writeFile(configPath, JSON.stringify({
+      'architectural-discipline': {
+        languages: {
+          typescript: { maxLines: 300, maxComplexity: 10 },
+          powershell: { maxLines: 400, maxComplexity: 12 },
+          csharp: { maxLines: 500, maxComplexity: 15 },
+          rust: { maxLines: 500, maxComplexity: 10 },
+        },
+      },
+    }, null, 2));
+  }
+  
+  console.log(chalk.green('📦 Project structure created'));
+}
+
+/**
+ * Replace template variables in files
+ */
+async function replaceTemplateVariables(dir: string, name: string, template: string): Promise<void> {
+  const files = await glob(`${dir}/**/*`, { nodir: true });
+  const pascalName = name.charAt(0).toUpperCase() + name.slice(1).replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+  const guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+  
+  for (const file of files) {
+    let content = await fs.readFile(file, 'utf-8');
+    content = content.replace(/\{\{name\}\}/g, name);
+    content = content.replace(/\{\{Name\}\}/g, pascalName);
+    content = content.replace(/\{\{guid\}\}/g, guid);
+    content = content.replace(/\{\{author\}\}/g, process.env.USER || 'User');
+    await fs.writeFile(file, content);
+  }
+  
+  // Rename files with template variables
+  const filesToRename = await glob(`${dir}/**/*{{name}}*`, { nodir: true });
+  for (const file of filesToRename) {
+    const newPath = file.replace(/\{\{name\}\}/g, name);
+    await fs.move(file, newPath);
+  }
+}
+
+/**
+ * Create basic PowerShell project
+ */
+async function createPowerShellProject(name: string, targetDir: string, template: string): Promise<void> {
+  if (template === 'powershell-module') {
+    await fs.writeFile(path.join(targetDir, `${name}.psm1`), `# ${name} PowerShell Module\n`);
+    await fs.writeFile(path.join(targetDir, `${name}.psd1`), `# Module manifest for ${name}\n`);
+  } else {
+    await fs.writeFile(path.join(targetDir, `${name}.ps1`), `# ${name} PowerShell CLI Script\n`);
+  }
+}
+
+/**
+ * Create basic C# project
+ */
+async function createCSharpProject(name: string, targetDir: string, template: string): Promise<void> {
+  const projectContent = template === 'csharp-library' 
+    ? `<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><TargetFramework>net8.0</TargetFramework></PropertyGroup></Project>`
+    : `<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework></PropertyGroup></Project>`;
+  
+  await fs.writeFile(path.join(targetDir, `${name}.csproj`), projectContent);
+  
+  if (template === 'csharp-console') {
+    await fs.writeFile(path.join(targetDir, 'Program.cs'), 'class Program { static void Main() { } }');
+  }
+}
+
+/**
+ * Create basic Rust project
+ */
+async function createRustProject(name: string, targetDir: string, template: string): Promise<void> {
+  const cargoToml = template === 'rust-library'
+    ? `[package]\nname = "${name}"\nversion = "1.0.0"\nedition = "2021"\n[lib]\npath = "src/lib.rs"`
+    : `[package]\nname = "${name}"\nversion = "1.0.0"\nedition = "2021"\n[[bin]]\nname = "${name}"\npath = "src/main.rs"`;
+  
+  await fs.ensureDir(path.join(targetDir, 'src'));
+  await fs.writeFile(path.join(targetDir, 'Cargo.toml'), cargoToml);
+  
+  if (template === 'rust-library') {
+    await fs.writeFile(path.join(targetDir, 'src/lib.rs'), `// ${name} library\n`);
+  } else {
+    await fs.writeFile(path.join(targetDir, 'src/main.rs'), `fn main() {\n    println!("Hello, world!");\n}\n`);
+  }
+}
+
+/**
+ * Create basic TypeScript project
+ */
+async function createTypeScriptProject(name: string, targetDir: string, template: string): Promise<void> {
   const packageJson = {
     name,
     version: '1.0.0',
@@ -304,8 +495,6 @@ async function createProject(name: string, template: string, targetDir: string):
     path.join(targetDir, 'package.json'),
     JSON.stringify(packageJson, null, 2)
   );
-  
-  console.log(chalk.green('📦 Created package.json with architectural discipline integration'));
 }
 
 // Parse command line arguments

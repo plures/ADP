@@ -1,0 +1,16 @@
+{
+  "architectural-discipline": {
+    "languages": {
+      "csharp": {
+        "maxLines": 400,
+        "maxComplexity": 12,
+        "maxLinesPerFunction": 80
+      }
+    },
+    "ignorePatterns": [
+      "**/bin/**",
+      "**/obj/**"
+    ]
+  }
+}
+

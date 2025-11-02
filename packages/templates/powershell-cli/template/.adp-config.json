@@ -1,0 +1,12 @@
+{
+  "architectural-discipline": {
+    "languages": {
+      "powershell": {
+        "maxLines": 500,
+        "maxComplexity": 10,
+        "maxLinesPerFunction": 150
+      }
+    }
+  }
+}
+

@@ -1,0 +1,26 @@
+{
+  "name": "@architectural-discipline/template-powershell-cli",
+  "version": "1.0.0",
+  "description": "PowerShell CLI script template with architectural discipline",
+  "files": [
+    "template/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "powershell",
+    "cli",
+    "script",
+    "template",
+    "architecture",
+    "discipline"
+  ],
+  "author": "Architectural Discipline Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/architectural-discipline/monorepo.git",
+    "directory": "packages/templates/powershell-cli"
+  }
+}
+

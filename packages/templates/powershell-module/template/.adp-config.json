@@ -1,0 +1,16 @@
+{
+  "architectural-discipline": {
+    "languages": {
+      "powershell": {
+        "maxLines": 400,
+        "maxComplexity": 12,
+        "maxLinesPerFunction": 200
+      }
+    },
+    "ignorePatterns": [
+      "**/*.Tests.ps1",
+      "**/Tests/**"
+    ]
+  }
+}
+

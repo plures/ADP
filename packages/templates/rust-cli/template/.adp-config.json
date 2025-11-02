@@ -1,0 +1,15 @@
+{
+  "architectural-discipline": {
+    "languages": {
+      "rust": {
+        "maxLines": 400,
+        "maxComplexity": 8,
+        "maxLinesPerFunction": 80
+      }
+    },
+    "ignorePatterns": [
+      "**/target/**"
+    ]
+  }
+}
+

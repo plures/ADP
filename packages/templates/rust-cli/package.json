@@ -1,0 +1,26 @@
+{
+  "name": "@architectural-discipline/template-rust-cli",
+  "version": "1.0.0",
+  "description": "Rust CLI binary template with architectural discipline",
+  "files": [
+    "template/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "rust",
+    "cli",
+    "binary",
+    "template",
+    "architecture",
+    "discipline"
+  ],
+  "author": "Architectural Discipline Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/architectural-discipline/monorepo.git",
+    "directory": "packages/templates/rust-cli"
+  }
+}
+

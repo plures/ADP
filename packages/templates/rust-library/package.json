@@ -1,0 +1,25 @@
+{
+  "name": "@architectural-discipline/template-rust-library",
+  "version": "1.0.0",
+  "description": "Rust library template with architectural discipline",
+  "files": [
+    "template/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "rust",
+    "library",
+    "template",
+    "architecture",
+    "discipline"
+  ],
+  "author": "Architectural Discipline Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/architectural-discipline/monorepo.git",
+    "directory": "packages/templates/rust-library"
+  }
+}
+
