@@ -9,7 +9,6 @@ import { Command } from 'commander';
 import chalk from 'chalk';
 import { glob } from 'glob';
 import * as fs from 'fs/promises';
-import * as fsSync from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { ArchitecturalAnalyzer } from '@architectural-discipline/core';
