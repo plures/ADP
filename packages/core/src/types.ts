@@ -28,7 +28,7 @@ export interface FunctionMetrics {
 }
 
 export interface FileType {
-  category: 'machine' | 'client' | 'handler' | 'utility' | 'integration' | 'test' | 'config' | 'class' | 'module' | 'service' | 'controller' | 'script';
+  category: 'machine' | 'client' | 'handler' | 'utility' | 'integration' | 'test' | 'config' | 'class' | 'module' | 'service' | 'controller' | 'script' | 'function';
   subcategory: string;
   expectedSizeRange: [number, number];
   complexityThreshold: number;
