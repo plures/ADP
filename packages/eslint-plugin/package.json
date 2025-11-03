@@ -21,7 +21,7 @@
     "check:architecture": "tsx scripts/check-architecture.ts"
   },
   "dependencies": {
-    "@architectural-discipline/core": "workspace:*",
+    "@architectural-discipline/core": "*",
     "eslint": "^8.54.0"
   },
   "devDependencies": {
