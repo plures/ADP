@@ -11,10 +11,10 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import prompts from 'prompts';
-import ora from 'ora';
 import { installOnline } from './install-online.js';
 import { installOffline } from './install-offline.js';
 import { detectProjectType, ProjectType } from './project-detection.js';
+import { createSpinner } from './ui-utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,7 +44,8 @@ program
       const cwd = process.cwd();
       
       // Detect project type
-      const spinner = ora('Detecting project type...').start();
+      const spinner = createSpinner('Detecting project type...');
+      spinner.start();
       const detectedType = await detectProjectType(cwd);
       spinner.succeed(`Detected project type: ${chalk.yellow(detectedType)}`);
 
@@ -65,13 +66,15 @@ program
 
       // Choose installation method
       if (options.offline) {
-        spinner.start('Installing from offline cache...');
+        const offlineSpinner = createSpinner('Installing from offline cache...');
+        offlineSpinner.start();
         await installOffline(cwd, projectType, options);
-        spinner.succeed('Offline installation complete!');
+        offlineSpinner.succeed('Offline installation complete!');
       } else {
-        spinner.start('Installing from npm registry...');
+        const onlineSpinner = createSpinner('Installing from npm registry...');
+        onlineSpinner.start();
         await installOnline(cwd, projectType, options);
-        spinner.succeed('Online installation complete!');
+        onlineSpinner.succeed('Online installation complete!');
       }
 
       console.log(chalk.green.bold('\n✅ ADP installed successfully!\n'));
@@ -110,7 +113,8 @@ program
     try {
       console.log(chalk.blue.bold('\n📦 Downloading ADP offline bundle...\n'));
 
-      const spinner = ora('Downloading packages...').start();
+      const downloadSpinner = createSpinner('Downloading packages...');
+      downloadSpinner.start();
       
       const outputDir = path.resolve(options.output);
       await fs.ensureDir(outputDir);
@@ -123,7 +127,7 @@ program
       ];
 
       for (const pkg of packages) {
-        spinner.text = `Downloading ${pkg}...`;
+        downloadSpinner.text = `Downloading ${pkg}...`;
         // Download package tarball
         await downloadPackage(pkg, outputDir);
       }
@@ -131,7 +135,7 @@ program
       // Create installation script
       await createOfflineInstaller(outputDir);
 
-      spinner.succeed('Offline bundle created successfully!');
+      downloadSpinner.succeed('Offline bundle created successfully!');
       
       console.log(chalk.green('\n✅ Offline bundle ready at:'), chalk.yellow(outputDir));
       console.log(chalk.cyan('\nTo install on air-gapped system:'));
