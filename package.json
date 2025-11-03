@@ -13,7 +13,9 @@
     "lint:fix": "npm run lint:fix --workspaces",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
     "validate:all": "npm run validate:all --workspaces",
-    "check:architecture": "npm run check:architecture --workspaces",
+    "check:architecture": "npm run build && node packages/cli/dist/cli.js analyze --path packages",
+    "check:architecture:recommend": "npm run build && node packages/cli/dist/cli.js recommend --path packages",
+    "check:architecture:critical": "npm run build && node packages/cli/dist/cli.js analyze --path packages --format json | grep -q '\"criticalOutliers\":0' || (echo 'Critical architectural issues found!' && exit 1)",
     "release": "changeset publish",
     "version": "changeset version",
     "changeset": "changeset"

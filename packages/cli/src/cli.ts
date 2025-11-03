@@ -8,14 +8,48 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { glob } from 'glob';
-import * as fs from 'fs-extra';
+import * as fs from 'fs/promises';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
-import { ArchitecturalAnalyzer, FILE_TYPE_PATTERNS } from '@architectural-discipline/core';
+import { ArchitecturalAnalyzer } from '@architectural-discipline/core';
 import type { StatisticalAnalysis, FileMetrics } from '@architectural-discipline/core';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Helper functions for fs operations
+async function pathExists(filePath: string): Promise<boolean> {
+  try {
+    await fs.access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function ensureDir(dirPath: string): Promise<void> {
+  try {
+    await fs.mkdir(dirPath, { recursive: true });
+  } catch (err: any) {
+    if (err.code !== 'EEXIST') throw err;
+  }
+}
+
+async function copyDir(src: string, dest: string): Promise<void> {
+  await ensureDir(dest);
+  const entries = await fs.readdir(src, { withFileTypes: true });
+  
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    
+    if (entry.isDirectory()) {
+      await copyDir(srcPath, destPath);
+    } else {
+      await fs.copyFile(srcPath, destPath);
+    }
+  }
+}
 
 const program = new Command();
 
@@ -348,7 +382,7 @@ async function createProject(name: string, template: string, targetDir: string):
   let templatePath = '';
   let templateExists = false;
   for (const possiblePath of possiblePaths) {
-    if (await fs.pathExists(possiblePath)) {
+    if (await pathExists(possiblePath)) {
       templatePath = possiblePath;
       templateExists = true;
       break;
@@ -358,8 +392,8 @@ async function createProject(name: string, template: string, targetDir: string):
   if (templateExists) {
     // Copy template files
     const templateDir = path.join(templatePath, 'template');
-    if (await fs.pathExists(templateDir)) {
-      await fs.copy(templateDir, targetDir);
+    if (await pathExists(templateDir)) {
+      await copyDir(templateDir, targetDir);
       console.log(chalk.green('✅ Template files copied'));
       
       // Replace template variables
@@ -367,7 +401,7 @@ async function createProject(name: string, template: string, targetDir: string):
     }
   } else {
     // Create basic structure for unsupported templates
-    await fs.ensureDir(targetDir);
+    await ensureDir(targetDir);
     console.log(chalk.yellow('⚠️  Template not found, creating basic structure'));
     
     // Create basic package.json or project file based on language
@@ -384,7 +418,7 @@ async function createProject(name: string, template: string, targetDir: string):
   
   // Create .adp-config.json if it doesn't exist
   const configPath = path.join(targetDir, '.adp-config.json');
-  if (!(await fs.pathExists(configPath))) {
+  if (!(await pathExists(configPath))) {
     await fs.writeFile(configPath, JSON.stringify({
       'architectural-discipline': {
         languages: {
@@ -425,7 +459,7 @@ async function replaceTemplateVariables(dir: string, name: string, template: str
   const filesToRename = await glob(`${dir}/**/*{{name}}*`, { nodir: true });
   for (const file of filesToRename) {
     const newPath = file.replace(/\{\{name\}\}/g, name);
-    await fs.move(file, newPath);
+    await fs.rename(file, newPath);
   }
 }
 
@@ -464,7 +498,7 @@ async function createRustProject(name: string, targetDir: string, template: stri
     ? `[package]\nname = "${name}"\nversion = "1.0.0"\nedition = "2021"\n[lib]\npath = "src/lib.rs"`
     : `[package]\nname = "${name}"\nversion = "1.0.0"\nedition = "2021"\n[[bin]]\nname = "${name}"\npath = "src/main.rs"`;
   
-  await fs.ensureDir(path.join(targetDir, 'src'));
+  await ensureDir(path.join(targetDir, 'src'));
   await fs.writeFile(path.join(targetDir, 'Cargo.toml'), cargoToml);
   
   if (template === 'rust-library') {

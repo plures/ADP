@@ -2,6 +2,8 @@
 
 A comprehensive toolkit for enforcing sustainable software architecture patterns through intelligent analysis, automated refactoring recommendations, and consistent code quality standards.
 
+**🔍 ADP Applies to Itself**: This project uses its own architectural discipline tools for self-governance. See [ARCHITECTURAL_HEALTH.md](ARCHITECTURAL_HEALTH.md) for our current metrics and improvement plan.
+
 ## 🎯 Overview
 
 The Architectural Discipline Package provides a complete solution for maintaining high-quality, maintainable software architecture across projects of any size. It combines statistical analysis, ESLint integration, CLI tooling, and project templates to create a unified approach to architectural excellence.
@@ -166,6 +168,17 @@ The Architectural Discipline Package is built on the principle that **sustainabl
 2. **Actionable Insights**: Specific recommendations rather than abstract principles
 3. **Gradual Adoption**: Incremental improvement without disrupting existing workflows
 4. **Community Standards**: Shared understanding of architectural excellence
+5. **Self-Governance**: ADP uses its own tools to maintain its codebase quality
+
+### Leading by Example
+
+ADP applies its own architectural discipline principles to itself:
+- **Current Health Score**: 27/100 (baseline established)
+- **Continuous Monitoring**: Automated analysis runs before commits
+- **Transparent Improvement**: All metrics and improvement plans are documented
+- **Incremental Refactoring**: Following the gradual improvement approach we recommend
+
+See [ARCHITECTURAL_HEALTH.md](ARCHITECTURAL_HEALTH.md) for detailed metrics and our improvement roadmap.
 
 ## 📚 Documentation
 
@@ -177,6 +190,8 @@ The Architectural Discipline Package is built on the principle that **sustainabl
 - [Project Templates](docs/templates.md)
 - [Migration Guide](docs/migration-guide.md)
 - [API Reference](docs/api-reference.md)
+- [Architectural Health Report](ARCHITECTURAL_HEALTH.md) - ADP's self-governance metrics
+- [Development Process](DevelopmentProcess.md) - How we use ADP on itself
 
 ## 🤝 Contributing
 
