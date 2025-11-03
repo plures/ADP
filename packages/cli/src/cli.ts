@@ -12,7 +12,7 @@ import * as fs from 'fs/promises';
 import * as fsSync from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
-import { ArchitecturalAnalyzer, FILE_TYPE_PATTERNS } from '@architectural-discipline/core';
+import { ArchitecturalAnalyzer } from '@architectural-discipline/core';
 import type { StatisticalAnalysis, FileMetrics } from '@architectural-discipline/core';
 
 const __filename = fileURLToPath(import.meta.url);
