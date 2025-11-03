@@ -628,6 +628,6 @@ export class ArchitecturalAnalyzer implements LanguageAnalyzer {
 }
 
 // Re-export types and constants for external use
-export * from './types';
+export * from './types.js';
 export { detectLanguage, getLanguageAnalyzer, getAllAnalyzers } from './languages/index.js';
 export { TypeScriptAnalyzer, PowerShellAnalyzer, CSharpAnalyzer, RustAnalyzer } from './languages/index.js';
