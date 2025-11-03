@@ -1,0 +1,17 @@
+{
+  "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+  "tasks": {
+    "analyze": "deno run npm:@architectural-discipline/cli analyze",
+    "recommend": "deno run npm:@architectural-discipline/cli recommend",
+    "check": "deno run npm:@architectural-discipline/cli analyze --format json"
+  },
+  "imports": {
+    "@architectural-discipline/cli": "npm:@architectural-discipline/cli@^1.0.0",
+    "@architectural-discipline/core": "npm:@architectural-discipline/core@^1.0.0"
+  },
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["deno.window"],
+    "strict": true
+  }
+}

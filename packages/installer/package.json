@@ -1,0 +1,60 @@
+{
+  "name": "@architectural-discipline/installer",
+  "version": "1.0.0",
+  "description": "Installer for adding ADP to any project",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "adp-install": "dist/install.js",
+    "create-adp": "dist/install.js"
+  },
+  "files": [
+    "dist/**/*",
+    "offline/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "chalk": "^5.3.0",
+    "fs-extra": "^11.2.0",
+    "node-fetch": "^3.3.2",
+    "tar": "^6.2.0",
+    "ora": "^7.0.1",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/prompts": "^2.4.9",
+    "@types/tar": "^6.1.11",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "keywords": [
+    "installer",
+    "architecture",
+    "discipline",
+    "setup",
+    "cli",
+    "adp"
+  ],
+  "author": "Architectural Discipline Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/architectural-discipline/monorepo.git",
+    "directory": "packages/installer"
+  },
+  "bugs": {
+    "url": "https://github.com/architectural-discipline/monorepo/issues"
+  },
+  "homepage": "https://github.com/architectural-discipline/monorepo#readme"
+}

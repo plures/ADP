@@ -1,0 +1,13 @@
+# Source files
+src/
+tsconfig.json
+*.test.ts
+*.spec.ts
+
+# Development files
+.DS_Store
+*.log
+npm-debug.log*
+
+# Build artifacts
+*.tsbuildinfo
