@@ -1,6 +1,7 @@
 {
   "name": "@architectural-discipline/core",
   "version": "1.0.0",
+  "type": "module",
   "description": "Core statistical analysis engine and architectural rule definitions",
   "type": "module",
   "main": "dist/index.js",

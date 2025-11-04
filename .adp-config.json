@@ -1,0 +1,32 @@
+{
+  "architectural-discipline": {
+    "languages": {
+      "typescript": {
+        "maxLines": 300,
+        "maxComplexity": 10,
+        "maxLinesPerFunction": 50
+      },
+      "javascript": {
+        "maxLines": 300,
+        "maxComplexity": 10,
+        "maxLinesPerFunction": 50
+      }
+    },
+    "ignorePatterns": [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      "**/templates/**"
+    ],
+    "projectType": "library",
+    "enableStatisticalAnalysis": true,
+    "thresholds": {
+      "projectHealth": {
+        "minimum": 75
+      },
+      "criticalOutlierMultiplier": 1.5
+    }
+  }
+}

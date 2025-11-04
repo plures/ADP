@@ -1,6 +1,7 @@
 {
   "name": "@architectural-discipline/eslint-plugin",
   "version": "1.0.0",
+  "type": "module",
   "description": "ESLint plugin for architectural discipline rules",
   "type": "module",
   "main": "dist/index.js",
