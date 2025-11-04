@@ -70,7 +70,6 @@ export class ArchitecturalAnalyzer implements LanguageAnalyzer {
   detectLanguage(filePath: string, content?: string): SupportedLanguage | null {
     return detectLanguage(filePath, content);
   }
-
   /**
    * Analyze a single file and extract comprehensive metrics
    */

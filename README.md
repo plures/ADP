@@ -44,14 +44,48 @@ The Architectural Discipline Package provides a complete solution for maintainin
 
 ### Installation
 
+**Recommended: Universal Installer (Works with any project type)**
+
+```bash
+# Using npx (no installation required)
+npx @architectural-discipline/installer install
+
+# Or using npm create
+npm create adp@latest
+```
+
+**Direct Package Installation (Node.js/TypeScript)**
+
 ```bash
 # Install the CLI globally
 npm install -g @architectural-discipline/cli
 
 # Or install specific packages
-npm install @architectural-discipline/core
-npm install @architectural-discipline/eslint-plugin
+npm install --save-dev @architectural-discipline/cli @architectural-discipline/core @architectural-discipline/eslint-plugin
 ```
+
+**Deno Installation**
+
+```bash
+# Add to deno.json and run
+deno task adp:analyze
+
+# Or run directly
+deno run npm:@architectural-discipline/cli analyze
+```
+
+**Offline Installation (Air-Gapped Environments)**
+
+```bash
+# Download bundle on connected machine
+npx @architectural-discipline/installer download-offline
+
+# Transfer to air-gapped system and install
+cd adp-offline
+node install-offline.js
+```
+
+📖 **[Complete Installation Guide](INSTALLATION.md)** - Detailed instructions for all platforms and scenarios
 
 ### Basic Usage
 

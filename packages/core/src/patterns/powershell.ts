@@ -61,7 +61,7 @@ export function classifyPowerShellFileType(filePath: string, content: string): F
   // Content-based classification
   if (content.includes('function ') && content.match(/function\s+\w+-\w+/)) {
     return {
-      category: 'function',
+      category: 'utility',
       subcategory: 'cmdlet',
       expectedSizeRange: [30, 200],
       complexityThreshold: 6,
