@@ -20,6 +20,10 @@
     "type": "git",
     "url": "https://github.com/architectural-discipline/monorepo.git",
     "directory": "packages/templates/powershell-module"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
 

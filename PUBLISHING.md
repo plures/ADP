@@ -2,14 +2,73 @@
 
 This guide explains how to publish ADP packages to npm and other registries.
 
-## Prerequisites
+## 🚀 Automated Publishing (Recommended)
+
+ADP uses GitHub Actions workflows for automated publishing. This is the recommended approach for most releases.
+
+### Automated Release with Changesets
+
+1. **Create a changeset for your changes:**
+   ```bash
+   npm run changeset
+   ```
+   - Select which packages to version
+   - Choose version bump type (patch/minor/major)
+   - Write a description of changes
+
+2. **Commit and push the changeset:**
+   ```bash
+   git add .changeset/
+   git commit -m "docs: add changeset for release"
+   git push origin main
+   ```
+
+3. **Automatic process:**
+   - The Release Management workflow creates a "Version Packages" PR
+   - Review and merge the PR
+   - Upon merge, packages are automatically published to npm
+
+### Manual Release via GitHub Releases
+
+1. **Create and push a tag:**
+   ```bash
+   git tag v1.0.0
+   git push origin v1.0.0
+   ```
+
+2. **Create a GitHub Release:**
+   - Go to GitHub → Releases → Draft a new release
+   - Select your tag
+   - Add release notes
+   - Click "Publish release"
+
+3. **Automatic process:**
+   - The Publish workflow runs automatically
+   - Builds all packages
+   - Publishes to npm registry
+
+### Setup Requirements
+
+**First-time setup for automated publishing:**
+
+1. Generate npm automation token at [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens)
+2. Add as `NPM_TOKEN` secret in repository settings
+3. Ensure packages have proper `publishConfig` (already configured)
+
+See [.github/workflows/README.md](.github/workflows/README.md) for detailed workflow documentation.
+
+## 📋 Manual Publishing
+
+For manual publishing or when automated workflows are unavailable:
+
+### Prerequisites
 
 1. **npm Account**: Create an account at [npmjs.com](https://www.npmjs.com/)
 2. **npm Authentication**: Login via CLI: `npm login`
 3. **Organization Access**: Request access to `@architectural-discipline` scope (or use your own scope)
 4. **Build Successful**: Ensure all packages build without errors
 
-## Publishing to npm
+### Publishing to npm
 
 ### Step 1: Build All Packages
 
@@ -169,36 +228,27 @@ npm publish
 
 ## CI/CD Publishing
 
-### GitHub Actions Workflow
+### ✅ GitHub Actions Workflows (Already Configured)
 
-Create `.github/workflows/publish.yml`:
+This repository includes three automated workflows:
 
-```yaml
-name: Publish Packages
+1. **CI Workflow** (`.github/workflows/ci.yml`)
+   - Runs on every push and PR
+   - Tests, builds, and validates all packages
+   - Ensures code quality before merging
 
-on:
-  release:
-    types: [created]
+2. **Publish Workflow** (`.github/workflows/publish.yml`)
+   - Triggers on GitHub Release creation
+   - Automatically publishes to npm registry
 
-jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-      
-      - run: npm install
-      
-      - run: npm run build
-      
-      - run: npm publish --workspaces --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-```
+3. **Release Management Workflow** (`.github/workflows/release.yml`)
+   - Uses Changesets for version management
+   - Creates version bump PRs
+   - Auto-publishes when version PR is merged
+
+**Note**: Workflows are already set up. You only need to configure the `NPM_TOKEN` secret.
+
+See [.github/workflows/README.md](.github/workflows/README.md) for complete documentation.
 
 ### Setup NPM Token
 
