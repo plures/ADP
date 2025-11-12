@@ -1,0 +1,174 @@
+{
+  "fileTypeStats": {},
+  "outliers": [
+    {
+      "file": "src/before/UserService.cs",
+      "language": "csharp",
+      "fileType": {
+        "category": "class",
+        "subcategory": "src/before/userservice.cs",
+        "expectedSizeRange": [
+          50,
+          400
+        ],
+        "complexityThreshold": 10
+      },
+      "lines": 249,
+      "functions": [
+        {
+          "name": "ProcessUser",
+          "line": 19,
+          "lines": 112,
+          "complexity": 35,
+          "purity": 0,
+          "parameters": 1,
+          "returnType": "void",
+          "sideEffects": [
+            "console-io",
+            "file-system"
+          ]
+        },
+        {
+          "name": "SendEmail",
+          "line": 132,
+          "lines": 5,
+          "complexity": 2,
+          "purity": 75,
+          "parameters": 2,
+          "returnType": "void",
+          "sideEffects": [
+            "console-io",
+            "state-mutation",
+            "file-system"
+          ]
+        },
+        {
+          "name": "SendSMS",
+          "line": 138,
+          "lines": 5,
+          "complexity": 2,
+          "purity": 75,
+          "parameters": 2,
+          "returnType": "void",
+          "sideEffects": [
+            "console-io",
+            "state-mutation",
+            "file-system"
+          ]
+        },
+        {
+          "name": "ApplyDarkTheme",
+          "line": 144,
+          "lines": 4,
+          "complexity": 2,
+          "purity": 85,
+          "parameters": 1,
+          "returnType": "void",
+          "sideEffects": [
+            "console-io",
+            "state-mutation"
+          ]
+        },
+        {
+          "name": "ApplyLightTheme",
+          "line": 149,
+          "lines": 4,
+          "complexity": 2,
+          "purity": 85,
+          "parameters": 1,
+          "returnType": "void",
+          "sideEffects": [
+            "console-io",
+            "state-mutation"
+          ]
+        },
+        {
+          "name": "TrackUserCreation",
+          "line": 154,
+          "lines": 4,
+          "complexity": 2,
+          "purity": 85,
+          "parameters": 1,
+          "returnType": "void",
+          "sideEffects": [
+            "state-mutation",
+            "file-system"
+          ]
+        },
+        {
+          "name": "GenerateReport",
+          "line": 160,
+          "lines": 56,
+          "complexity": 25,
+          "purity": 0,
+          "parameters": 2,
+          "returnType": "string",
+          "sideEffects": [
+            "file-system"
+          ]
+        }
+      ],
+      "complexity": 68,
+      "purity": 57.857142857142854,
+      "dependencies": [
+        "System",
+        "System.Collections.Generic",
+        "System.IO",
+        "System.Linq"
+      ],
+      "responsibilities": [
+        "object-oriented"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "file": "src/before/UserService.cs",
+      "priority": "medium",
+      "type": "extract-function",
+      "reason": "2 functions exceed recommended size",
+      "suggestedActions": [
+        "Break down large functions into smaller, focused functions",
+        "Extract complex logic into utility functions",
+        "Use composition over large monolithic functions"
+      ],
+      "estimatedEffort": "low"
+    },
+    {
+      "file": "src/before/UserService.cs",
+      "priority": "high",
+      "type": "reduce-complexity",
+      "reason": "Cyclomatic complexity exceeds threshold for class files",
+      "suggestedActions": [
+        "Simplify conditional logic",
+        "Extract complex conditions into named functions",
+        "Use early returns to reduce nesting"
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "file": "src/before/UserService.cs",
+      "priority": "low",
+      "type": "improve-purity",
+      "reason": "Low function purity score indicates many side effects",
+      "suggestedActions": [
+        "Reduce side effects in functions",
+        "Separate pure logic from side effects",
+        "Use functional programming patterns"
+      ],
+      "estimatedEffort": "high"
+    }
+  ],
+  "projectHealth": {
+    "overall": 31,
+    "maintainability": 0,
+    "testability": 38,
+    "modularity": 86,
+    "complexity": 0,
+    "trends": {
+      "fileSizeGrowth": 0,
+      "complexityTrend": 0,
+      "purityTrend": 0
+    }
+  }
+}

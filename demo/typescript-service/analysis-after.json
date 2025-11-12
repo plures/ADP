@@ -1,0 +1,367 @@
+{
+  "fileTypeStats": {},
+  "outliers": [
+    {
+      "file": "src/after/validation.ts",
+      "language": "typescript",
+      "fileType": {
+        "category": "utility",
+        "subcategory": "general",
+        "expectedSizeRange": [
+          30,
+          150
+        ],
+        "complexityThreshold": 6
+      },
+      "lines": 33,
+      "functions": [
+        {
+          "name": "validateUserId",
+          "line": 2,
+          "lines": 3,
+          "complexity": 113,
+          "purity": 0,
+          "parameters": 1,
+          "returnType": "void",
+          "sideEffects": []
+        },
+        {
+          "name": "validateUserName",
+          "line": 6,
+          "lines": 3,
+          "complexity": 121,
+          "purity": 0,
+          "parameters": 1,
+          "returnType": "void",
+          "sideEffects": []
+        },
+        {
+          "name": "validateUserEmail",
+          "line": 10,
+          "lines": 4,
+          "complexity": 195,
+          "purity": 0,
+          "parameters": 1,
+          "returnType": "void",
+          "sideEffects": []
+        },
+        {
+          "name": "validateUserAge",
+          "line": 15,
+          "lines": 4,
+          "complexity": 180,
+          "purity": 0,
+          "parameters": 1,
+          "returnType": "void",
+          "sideEffects": []
+        },
+        {
+          "name": "validateUserRole",
+          "line": 20,
+          "lines": 5,
+          "complexity": 242,
+          "purity": 0,
+          "parameters": 1,
+          "returnType": "void",
+          "sideEffects": []
+        },
+        {
+          "name": "validateUserData",
+          "line": 26,
+          "lines": 7,
+          "complexity": 235,
+          "purity": 0,
+          "parameters": 1,
+          "returnType": "void",
+          "sideEffects": []
+        }
+      ],
+      "complexity": 1128,
+      "purity": 0,
+      "dependencies": [],
+      "responsibilities": [
+        "module-export"
+      ]
+    },
+    {
+      "file": "src/after/user-service.ts",
+      "language": "typescript",
+      "fileType": {
+        "category": "client",
+        "subcategory": "service",
+        "expectedSizeRange": [
+          100,
+          400
+        ],
+        "complexityThreshold": 12
+      },
+      "lines": 72,
+      "functions": [],
+      "complexity": 1984,
+      "purity": 0,
+      "dependencies": [
+        "./validation.js",
+        "./notifications.js",
+        "./theme.js",
+        "./logger.js"
+      ],
+      "responsibilities": [
+        "object-oriented",
+        "asynchronous",
+        "module-export"
+      ]
+    },
+    {
+      "file": "src/after/theme.ts",
+      "language": "typescript",
+      "fileType": {
+        "category": "utility",
+        "subcategory": "general",
+        "expectedSizeRange": [
+          30,
+          150
+        ],
+        "complexityThreshold": 6
+      },
+      "lines": 15,
+      "functions": [],
+      "complexity": 441,
+      "purity": 0,
+      "dependencies": [],
+      "responsibilities": [
+        "object-oriented",
+        "module-export"
+      ]
+    },
+    {
+      "file": "src/after/report-generator.ts",
+      "language": "typescript",
+      "fileType": {
+        "category": "utility",
+        "subcategory": "general",
+        "expectedSizeRange": [
+          30,
+          150
+        ],
+        "complexityThreshold": 6
+      },
+      "lines": 85,
+      "functions": [],
+      "complexity": 2305,
+      "purity": 0,
+      "dependencies": [
+        "fs"
+      ],
+      "responsibilities": [
+        "object-oriented",
+        "module-export"
+      ]
+    },
+    {
+      "file": "src/after/notifications.ts",
+      "language": "typescript",
+      "fileType": {
+        "category": "client",
+        "subcategory": "service",
+        "expectedSizeRange": [
+          100,
+          400
+        ],
+        "complexityThreshold": 12
+      },
+      "lines": 22,
+      "functions": [],
+      "complexity": 687,
+      "purity": 0,
+      "dependencies": [
+        "fs"
+      ],
+      "responsibilities": [
+        "object-oriented",
+        "module-export"
+      ]
+    },
+    {
+      "file": "src/after/logger.ts",
+      "language": "typescript",
+      "fileType": {
+        "category": "client",
+        "subcategory": "service",
+        "expectedSizeRange": [
+          100,
+          400
+        ],
+        "complexityThreshold": 12
+      },
+      "lines": 30,
+      "functions": [],
+      "complexity": 717,
+      "purity": 0,
+      "dependencies": [
+        "fs"
+      ],
+      "responsibilities": [
+        "object-oriented",
+        "module-export"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "file": "src/after/validation.ts",
+      "priority": "high",
+      "type": "reduce-complexity",
+      "reason": "Cyclomatic complexity exceeds threshold for utility files",
+      "suggestedActions": [
+        "Simplify conditional logic",
+        "Extract complex conditions into named functions",
+        "Use early returns to reduce nesting"
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "file": "src/after/validation.ts",
+      "priority": "low",
+      "type": "improve-purity",
+      "reason": "Low function purity score indicates many side effects",
+      "suggestedActions": [
+        "Reduce side effects in functions",
+        "Separate pure logic from side effects",
+        "Use functional programming patterns"
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "file": "src/after/user-service.ts",
+      "priority": "high",
+      "type": "reduce-complexity",
+      "reason": "Cyclomatic complexity exceeds threshold for client files",
+      "suggestedActions": [
+        "Simplify conditional logic",
+        "Extract complex conditions into named functions",
+        "Use early returns to reduce nesting"
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "file": "src/after/user-service.ts",
+      "priority": "low",
+      "type": "improve-purity",
+      "reason": "Low function purity score indicates many side effects",
+      "suggestedActions": [
+        "Reduce side effects in functions",
+        "Separate pure logic from side effects",
+        "Use functional programming patterns"
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "file": "src/after/theme.ts",
+      "priority": "high",
+      "type": "reduce-complexity",
+      "reason": "Cyclomatic complexity exceeds threshold for utility files",
+      "suggestedActions": [
+        "Simplify conditional logic",
+        "Extract complex conditions into named functions",
+        "Use early returns to reduce nesting"
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "file": "src/after/theme.ts",
+      "priority": "low",
+      "type": "improve-purity",
+      "reason": "Low function purity score indicates many side effects",
+      "suggestedActions": [
+        "Reduce side effects in functions",
+        "Separate pure logic from side effects",
+        "Use functional programming patterns"
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "file": "src/after/report-generator.ts",
+      "priority": "high",
+      "type": "reduce-complexity",
+      "reason": "Cyclomatic complexity exceeds threshold for utility files",
+      "suggestedActions": [
+        "Simplify conditional logic",
+        "Extract complex conditions into named functions",
+        "Use early returns to reduce nesting"
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "file": "src/after/report-generator.ts",
+      "priority": "low",
+      "type": "improve-purity",
+      "reason": "Low function purity score indicates many side effects",
+      "suggestedActions": [
+        "Reduce side effects in functions",
+        "Separate pure logic from side effects",
+        "Use functional programming patterns"
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "file": "src/after/notifications.ts",
+      "priority": "high",
+      "type": "reduce-complexity",
+      "reason": "Cyclomatic complexity exceeds threshold for client files",
+      "suggestedActions": [
+        "Simplify conditional logic",
+        "Extract complex conditions into named functions",
+        "Use early returns to reduce nesting"
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "file": "src/after/notifications.ts",
+      "priority": "low",
+      "type": "improve-purity",
+      "reason": "Low function purity score indicates many side effects",
+      "suggestedActions": [
+        "Reduce side effects in functions",
+        "Separate pure logic from side effects",
+        "Use functional programming patterns"
+      ],
+      "estimatedEffort": "high"
+    },
+    {
+      "file": "src/after/logger.ts",
+      "priority": "high",
+      "type": "reduce-complexity",
+      "reason": "Cyclomatic complexity exceeds threshold for client files",
+      "suggestedActions": [
+        "Simplify conditional logic",
+        "Extract complex conditions into named functions",
+        "Use early returns to reduce nesting"
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "file": "src/after/logger.ts",
+      "priority": "low",
+      "type": "improve-purity",
+      "reason": "Low function purity score indicates many side effects",
+      "suggestedActions": [
+        "Reduce side effects in functions",
+        "Separate pure logic from side effects",
+        "Use functional programming patterns"
+      ],
+      "estimatedEffort": "high"
+    }
+  ],
+  "projectHealth": {
+    "overall": 25,
+    "maintainability": 0,
+    "testability": 0,
+    "modularity": 98,
+    "complexity": 0,
+    "trends": {
+      "fileSizeGrowth": 0,
+      "complexityTrend": 0,
+      "purityTrend": 0
+    }
+  }
+}

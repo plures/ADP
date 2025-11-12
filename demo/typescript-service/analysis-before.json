@@ -1,0 +1,81 @@
+{
+  "fileTypeStats": {},
+  "outliers": [
+    {
+      "file": "src/before/user-service.ts",
+      "language": "typescript",
+      "fileType": {
+        "category": "utility",
+        "subcategory": "general",
+        "expectedSizeRange": [
+          30,
+          150
+        ],
+        "complexityThreshold": 6
+      },
+      "lines": 157,
+      "functions": [],
+      "complexity": 5905,
+      "purity": 0,
+      "dependencies": [
+        "fs",
+        "path"
+      ],
+      "responsibilities": [
+        "object-oriented",
+        "asynchronous",
+        "module-export"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "file": "src/before/user-service.ts",
+      "priority": "high",
+      "type": "extract-module",
+      "reason": "File exceeds expected size range for utility files",
+      "suggestedActions": [
+        "Extract related functions into separate modules",
+        "Apply single responsibility principle",
+        "Create focused, cohesive modules"
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "file": "src/before/user-service.ts",
+      "priority": "high",
+      "type": "reduce-complexity",
+      "reason": "Cyclomatic complexity exceeds threshold for utility files",
+      "suggestedActions": [
+        "Simplify conditional logic",
+        "Extract complex conditions into named functions",
+        "Use early returns to reduce nesting"
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "file": "src/before/user-service.ts",
+      "priority": "low",
+      "type": "improve-purity",
+      "reason": "Low function purity score indicates many side effects",
+      "suggestedActions": [
+        "Reduce side effects in functions",
+        "Separate pure logic from side effects",
+        "Use functional programming patterns"
+      ],
+      "estimatedEffort": "high"
+    }
+  ],
+  "projectHealth": {
+    "overall": 25,
+    "maintainability": 0,
+    "testability": 0,
+    "modularity": 100,
+    "complexity": 0,
+    "trends": {
+      "fileSizeGrowth": 0,
+      "complexityTrend": 0,
+      "purityTrend": 0
+    }
+  }
+}

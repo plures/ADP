@@ -1,0 +1,12 @@
+{
+  "name": "adp-demo-typescript-service",
+  "version": "1.0.0",
+  "description": "Demo TypeScript service showing ADP analysis workflow",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "analyze": "architectural-discipline analyze --path src --format json --output analysis.json",
+    "analyze:text": "architectural-discipline analyze --path src",
+    "recommend": "architectural-discipline recommend --path src"
+  }
+}
