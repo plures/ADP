@@ -65,11 +65,11 @@ jobs:
         run: npm run lint
         continue-on-error: true
 
-      - name: Build core first
-        run: cd packages/core && npm run build
-
-      - name: Build all packages
-        run: npm run build
+      - name: Build packages
+        run: |
+          # Build core first, then other packages
+          npm run build --workspace=@architectural-discipline/core
+          npm run build --workspaces --if-present
 
       - name: Run tests
         run: npm run test
