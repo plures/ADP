@@ -7,11 +7,43 @@ on:
     branches: [main, develop]
 
 jobs:
-  test:
-    name: Test and Build
+  validate-config:
+    name: Validate Configuration
     runs-on: ubuntu-latest
     permissions:
       contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Validate .adp-config.json schema
+        run: |
+          if [ -f .adp-config.json ]; then
+            node -e "
+            const config = require('./.adp-config.json');
+            const requiredFields = ['architectural-discipline'];
+            const valid = requiredFields.every(field => config.hasOwnProperty(field));
+            if (!valid) {
+              console.error('Invalid .adp-config.json: missing required fields');
+              process.exit(1);
+            }
+            console.log('✅ Configuration is valid');
+            "
+          else
+            echo "⚠️  No .adp-config.json found, skipping validation"
+          fi
+
+  test-node:
+    name: Test and Build (Node.js ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
 
     strategy:
       matrix:
@@ -44,7 +76,107 @@ jobs:
         continue-on-error: true
 
       - name: Check architecture
-        run: npm run check:architecture
+        id: arch-check
+        run: |
+          npm run build
+          node packages/cli/dist/cli.js analyze --path packages --format json --output architectural-analysis.json || true
+          if [ -f architectural-analysis.json ]; then
+            echo "analysis_exists=true" >> $GITHUB_OUTPUT
+          fi
+        continue-on-error: true
+
+      - name: Convert analysis to SARIF
+        if: steps.arch-check.outputs.analysis_exists == 'true'
+        run: |
+          node -e "
+          const fs = require('fs');
+          const analysis = JSON.parse(fs.readFileSync('architectural-analysis.json', 'utf8'));
+          
+          const sarif = {
+            version: '2.1.0',
+            \$schema: 'https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json',
+            runs: [{
+              tool: {
+                driver: {
+                  name: 'Architectural Discipline Package',
+                  informationUri: 'https://github.com/architectural-discipline/monorepo',
+                  version: '1.0.0',
+                  rules: [{
+                    id: 'architectural-outlier',
+                    name: 'ArchitecturalOutlier',
+                    shortDescription: { text: 'File exceeds architectural thresholds' },
+                    fullDescription: { text: 'This file deviates from expected architectural patterns based on statistical analysis' },
+                    helpUri: 'https://github.com/architectural-discipline/monorepo#readme'
+                  }]
+                }
+              },
+              results: (analysis.outliers || []).map(outlier => ({
+                ruleId: 'architectural-outlier',
+                level: 'warning',
+                message: {
+                  text: \`File \${outlier.file} has complexity \${outlier.complexity} (threshold: \${outlier.fileType.complexityThreshold}) and \${outlier.lines} lines\`
+                },
+                locations: [{
+                  physicalLocation: {
+                    artifactLocation: { uri: outlier.file },
+                    region: { startLine: 1 }
+                  }
+                }]
+              }))
+            }]
+          };
+          
+          fs.writeFileSync('architectural-analysis.sarif', JSON.stringify(sarif, null, 2));
+          console.log('✅ SARIF report generated');
+          " || echo "⚠️  SARIF conversion failed"
+
+      - name: Upload SARIF to GitHub Security
+        if: steps.arch-check.outputs.analysis_exists == 'true' && github.event_name == 'push' && matrix.node-version == '20.x'
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: architectural-analysis.sarif
+          category: architectural-discipline
+        continue-on-error: true
+
+      - name: Upload architectural analysis artifact
+        if: steps.arch-check.outputs.analysis_exists == 'true' && matrix.node-version == '20.x'
+        uses: actions/upload-artifact@v4
+        with:
+          name: architectural-analysis
+          path: |
+            architectural-analysis.json
+            architectural-analysis.sarif
+          retention-days: 30
+
+  test-deno:
+    name: Test with Deno
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Setup Node.js for build
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Test Deno compatibility
+        run: |
+          echo "Testing Deno can run ADP CLI..."
+          deno run --allow-read --allow-write npm:@architectural-discipline/cli --help || echo "⚠️  Deno support needs work"
         continue-on-error: true
 
   security:

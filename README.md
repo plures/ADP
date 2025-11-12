@@ -1,5 +1,10 @@
 # Architectural Discipline Package
 
+[![CI](https://github.com/plures/ADP/actions/workflows/ci.yml/badge.svg)](https://github.com/plures/ADP/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@architectural-discipline/core.svg)](https://www.npmjs.com/package/@architectural-discipline/core)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/node/v/@architectural-discipline/core.svg)](https://nodejs.org)
+
 A comprehensive toolkit for enforcing sustainable software architecture patterns through intelligent analysis, automated refactoring recommendations, and consistent code quality standards.
 
 **🔍 ADP Applies to Itself**: This project uses its own architectural discipline tools for self-governance. See [ARCHITECTURAL_HEALTH.md](ARCHITECTURAL_HEALTH.md) for our current metrics and improvement plan.
@@ -216,14 +221,28 @@ See [ARCHITECTURAL_HEALTH.md](ARCHITECTURAL_HEALTH.md) for detailed metrics and 
 
 ## 📚 Documentation
 
+### Getting Started
 - [Getting Started](docs/getting-started.md)
 - [Multi-Language Usage](docs/multi-language-usage.md) - Guide for using ADP with PowerShell, C#, Rust, and more
+- [Installation Guide](INSTALLATION.md) - Detailed installation instructions for all platforms
+- [End-to-End Demos](demo/README.md) - Complete examples showing analyze → recommend → fix workflow
+
+### Rule Catalogs
+- **[Rule Catalog Index](docs/rules/README.md)** - Overview of all rules
+- [TypeScript/JavaScript Rules](docs/rules/typescript.md) - Complete rule reference with examples
+- [PowerShell Rules](docs/rules/powershell.md) - PowerShell-specific architectural rules
+- [C# Rules](docs/rules/csharp.md) - C# and .NET guidelines
+- [Rust Rules](docs/rules/rust.md) - Rust idioms and best practices
+
+### Reference
 - [Core Concepts](docs/core-concepts.md)
 - [ESLint Plugin](docs/eslint-plugin.md)
 - [CLI Reference](docs/cli-reference.md)
 - [Project Templates](docs/templates.md)
 - [Migration Guide](docs/migration-guide.md)
 - [API Reference](docs/api-reference.md)
+
+### Self-Governance
 - [Architectural Health Report](ARCHITECTURAL_HEALTH.md) - ADP's self-governance metrics
 - [Development Process](DevelopmentProcess.md) - How we use ADP on itself
 
