@@ -1,0 +1,102 @@
+name: Good First Issue
+description: Beginner-friendly issue for new contributors
+title: "[Good First Issue] "
+labels: ["good first issue", "help wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest in contributing to ADP! This template is for creating beginner-friendly issues.
+        
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: What type of contribution is this?
+      options:
+        - Documentation
+        - Code Example
+        - Bug Fix
+        - Test Coverage
+        - Language Analyzer
+        - Rule Catalog
+        - Tooling
+    validations:
+      required: true
+      
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe what needs to be done
+      placeholder: |
+        Example: Add documentation for PowerShell analyzer configuration options
+    validations:
+      required: true
+      
+  - type: textarea
+    id: context
+    attributes:
+      label: Context & Motivation
+      description: Why is this important?
+      placeholder: |
+        Example: Users are confused about how to configure PowerShell analysis thresholds. Clear documentation will help adoption.
+    validations:
+      required: true
+      
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: What defines "done" for this issue?
+      placeholder: |
+        - [ ] Documentation added to docs/languages/powershell.md
+        - [ ] Examples included
+        - [ ] Tested with real config file
+    validations:
+      required: true
+      
+  - type: textarea
+    id: resources
+    attributes:
+      label: Resources & References
+      description: Helpful links, files, or context
+      placeholder: |
+        - Existing TypeScript docs: docs/languages/typescript.md
+        - PowerShell analyzer: packages/core/src/analyzers/powershell.ts
+        - Example config: examples/powershell-example/.adp-config.json
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: difficulty
+    attributes:
+      label: Estimated Difficulty
+      description: How complex is this task?
+      options:
+        - Beginner (< 2 hours)
+        - Intermediate (2-4 hours)
+        - Advanced (> 4 hours)
+    validations:
+      required: true
+      
+  - type: textarea
+    id: skills
+    attributes:
+      label: Required Skills
+      description: What skills would help with this issue?
+      placeholder: |
+        - Basic Markdown
+        - Understanding of PowerShell
+        - Reading TypeScript code
+    validations:
+      required: false
+      
+  - type: checkboxes
+    id: mentor
+    attributes:
+      label: Mentorship Available
+      description: Are you willing to mentor someone working on this?
+      options:
+        - label: "Yes, I can provide guidance and code review"
+        - label: "I'll be available for questions"

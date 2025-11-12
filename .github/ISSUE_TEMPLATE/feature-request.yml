@@ -1,0 +1,73 @@
+name: Feature Request
+description: Suggest a new feature for ADP
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please provide details below.
+        
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve?
+      placeholder: "I'm always frustrated when..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How would you like this to work?
+      placeholder: "I'd like ADP to..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: What other solutions have you considered?
+      placeholder: "I considered using X, but..."
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: languages
+    attributes:
+      label: Affected Languages
+      description: Which languages would this feature support?
+      multiple: true
+      options:
+        - All Languages
+        - TypeScript/JavaScript
+        - PowerShell
+        - C#
+        - Rust
+        - Python (future)
+        - Other
+    validations:
+      required: true
+      
+  - type: textarea
+    id: examples
+    attributes:
+      label: Usage Examples
+      description: Show how the feature would be used
+      render: shell
+      placeholder: |
+        # Example command
+        architectural-discipline analyze --new-feature
+        
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to help implement this?
+      options:
+        - label: "I'm willing to implement this feature"
+        - label: "I can help with documentation"
+        - label: "I can help with testing"

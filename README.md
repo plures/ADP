@@ -219,6 +219,132 @@ ADP applies its own architectural discipline principles to itself:
 
 See [ARCHITECTURAL_HEALTH.md](ARCHITECTURAL_HEALTH.md) for detailed metrics and our improvement roadmap.
 
+## 🔍 Prior Art & Comparisons
+
+ADP builds on and complements existing architectural tooling. Here's how it compares:
+
+### vs. ESLint Architectural Plugins
+
+**ESLint Plugins (eslint-plugin-import, eslint-plugin-boundaries):**
+- ✅ Deep TypeScript/JavaScript integration
+- ✅ Real-time IDE feedback
+- ❌ Limited to JavaScript ecosystem
+- ❌ Manual rule configuration required
+- ❌ No statistical analysis
+
+**ADP:**
+- ✅ Multi-language support (TypeScript, PowerShell, C#, Rust)
+- ✅ Statistical analysis automatically determines thresholds
+- ✅ File type classification without manual configuration
+- ✅ Integrated with ESLint for JavaScript/TypeScript
+- ✅ Holistic project health scoring
+
+**Use Together:** ADP complements ESLint by providing higher-level architectural analysis while ESLint handles syntax and style.
+
+### vs. Dependency Analysis Tools (Madge, dependency-cruiser)
+
+**Madge / dependency-cruiser:**
+- ✅ Excellent dependency visualization
+- ✅ Circular dependency detection
+- ✅ Detailed module graphs
+- ❌ Focused only on dependencies
+- ❌ No complexity or size analysis
+- ❌ Manual threshold configuration
+
+**ADP:**
+- ✅ Analyzes dependencies, complexity, size, and purity
+- ✅ Statistical thresholds adapt to your codebase
+- ✅ Provides refactoring recommendations
+- ✅ Multi-language support
+- ✅ Project health trending over time
+- 🔄 Dependency graphing planned (future feature)
+
+**Use Together:** Combine ADP for overall architecture with Madge for detailed dependency visualization.
+
+### vs. Architecture Testing Frameworks (ArchUnit, NetArchTest)
+
+**ArchUnit (Java) / NetArchTest (.NET):**
+- ✅ Enforce architectural rules as tests
+- ✅ Layer dependency rules
+- ✅ Naming conventions
+- ✅ Strong type safety
+- ❌ Single language per tool
+- ❌ Requires writing test code
+- ❌ No statistical analysis
+- ❌ Binary pass/fail (no gradual improvement)
+
+**ADP:**
+- ✅ Multi-language support in one tool
+- ✅ Statistical analysis finds issues automatically
+- ✅ Gradual improvement model
+- ✅ Works without writing tests
+- ✅ Provides concrete refactoring suggestions
+- ✅ Tracks improvement over time
+- 🔄 Layer rules planned (future feature)
+
+**Use Together:** Use ArchUnit/NetArchTest for strict architectural constraints in tests, ADP for continuous quality measurement and improvement tracking.
+
+### Unique ADP Advantages
+
+1. **Multi-Language Consistency**: Same architectural principles across TypeScript, PowerShell, C#, Rust, and more
+2. **Statistical Intelligence**: Automatically learns your codebase patterns and identifies outliers
+3. **File Type Classification**: Understands that components, services, and utilities have different expected characteristics
+4. **Gradual Improvement**: Designed for incremental refactoring, not "big bang" changes
+5. **Self-Documenting**: Applies its own rules to itself, demonstrating transparency
+6. **Actionable Recommendations**: Doesn't just report problems, suggests specific fixes
+7. **Project Health Scoring**: Single metric that tracks overall architecture quality
+
+### When to Use Which Tool
+
+| Scenario | Recommended Tool(s) |
+|----------|-------------------|
+| JavaScript/TypeScript linting | ESLint + ADP |
+| Visualize module dependencies | Madge or dependency-cruiser |
+| Enforce layer boundaries (Java) | ArchUnit + ADP |
+| Enforce layer boundaries (.NET) | NetArchTest + ADP |
+| Multi-language architecture analysis | **ADP** |
+| Statistical complexity analysis | **ADP** |
+| Gradual refactoring guidance | **ADP** |
+| Cross-language consistency | **ADP** |
+| Project health trends | **ADP** |
+
+### Integration Strategy
+
+ADP is designed to work alongside your existing tools:
+
+```yaml
+# Example CI/CD integration
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      # Syntax and style
+      - run: npm run lint
+      
+      # Architecture analysis
+      - run: architectural-discipline analyze
+      
+      # Dependency graph (if using Madge)
+      - run: madge --circular src/
+      
+      # Unit tests with ArchUnit/NetArchTest
+      - run: npm test
+```
+
+### Philosophy Differences
+
+**Traditional Tools:** "Does this code violate a specific rule?"  
+**ADP:** "Is this file an outlier compared to similar files in this codebase?"
+
+**Traditional Tools:** Manual threshold configuration  
+**ADP:** Statistical analysis determines expected ranges
+
+**Traditional Tools:** Binary pass/fail  
+**ADP:** Graduated severity with improvement tracking
+
+**Traditional Tools:** Single language focus  
+**ADP:** Multi-language architectural consistency
+
 ## 📚 Documentation
 
 ### Getting Started
