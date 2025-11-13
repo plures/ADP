@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
   release:
     types: [created]
   workflow_dispatch: {}
@@ -38,12 +40,72 @@ jobs:
         run: npm run -ws --if-present test
         continue-on-error: true
 
-      - name: Publish all workspaces
+      - name: Publish unpublished workspaces
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo "Publishing workspaces..."
-          npm publish --workspaces --access public
+          echo "Publishing only packages that are not yet on npm..."
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const { execSync, spawnSync } = require('child_process');
+          
+          function listWorkspaces() {
+            const root = JSON.parse(fs.readFileSync('package.json','utf8'));
+            const patterns = root.workspaces || [];
+            const dirs = [];
+            for (const pat of patterns) {
+              if (pat.endsWith('/*')) {
+                const base = pat.slice(0, -2);
+                if (fs.existsSync(base)) {
+                  for (const name of fs.readdirSync(base)) {
+                    const pkgPath = path.join(base, name, 'package.json');
+                    if (fs.existsSync(pkgPath)) dirs.push(path.join(base, name));
+                  }
+                }
+              } else if (fs.existsSync(pat)) {
+                const stat = fs.statSync(pat);
+                if (stat.isDirectory()) dirs.push(pat);
+              }
+            }
+            return dirs;
+          }
+          
+          function isPublished(name, version) {
+            try {
+              const out = execSync(`npm view "${name}@${version}" version`, { stdio: ['ignore','pipe','ignore'] }).toString().trim();
+              return out === version;
+            } catch {
+              return false;
+            }
+          }
+          
+          const workspaces = listWorkspaces();
+          let published = 0;
+          for (const ws of workspaces) {
+            const pkgPath = path.join(ws, 'package.json');
+            if (!fs.existsSync(pkgPath)) continue;
+            const pkg = JSON.parse(fs.readFileSync(pkgPath,'utf8'));
+            if (pkg.private) continue;
+            const { name, version } = pkg;
+            if (!name || !version) continue;
+            if (isPublished(name, version)) {
+              console.log(`skip ${name}@${version} (already published)`);
+              continue;
+            }
+            console.log(`publishing ${name}@${version} from ${ws}`);
+            const res = spawnSync('npm', ['publish', '--access', 'public'], { cwd: ws, stdio: 'inherit' });
+            if (res.status !== 0) {
+              console.error(`failed to publish ${name}@${version}`);
+              process.exitCode = res.status || 1;
+            } else {
+              published++;
+            }
+          }
+          if (published === 0) {
+            console.log('No unpublished packages found.');
+          }
+          NODE
 
       - name: Create publication summary
         if: always()

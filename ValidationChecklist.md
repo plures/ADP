@@ -56,4 +56,6 @@
 ## Publishing
 
 - [x] GitHub Actions workflow added to publish all workspaces to npm on main
+- [x] Tag-based publishing enabled (push/release on tags `v*`)
+- [x] Workflow publishes only unpublished package versions
 - [ ] NPM_TOKEN repository secret configured for npm authentication
