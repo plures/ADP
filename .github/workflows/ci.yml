@@ -69,10 +69,17 @@ jobs:
         run: |
           echo "Checking workspace symlinks..."
           ls -la node_modules/@architectural-discipline/ || echo "No workspace symlinks found"
+          echo ""
+          echo "Verifying core symlink target..."
+          ls -la node_modules/@architectural-discipline/core || echo "Core symlink broken"
+          echo ""
           echo "Checking if core package exists..."
           test -d packages/core && echo "✓ Core package exists" || echo "✗ Core package missing"
           echo "Checking if cli package exists..."
           test -d packages/cli && echo "✓ CLI package exists" || echo "✗ CLI package missing"
+          echo ""
+          echo "Checking if core has package.json..."
+          test -f packages/core/package.json && echo "✓ Core package.json exists" || echo "✗ Core package.json missing"
 
       - name: Lint
         run: npm run lint
@@ -88,6 +95,15 @@ jobs:
           test -f packages/core/dist/index.js && echo "✓ Core JS built" || (echo "✗ Core JS missing" && exit 1)
           test -f packages/core/dist/index.d.ts && echo "✓ Core types built" || (echo "✗ Core types missing" && exit 1)
           
+          echo ""
+          echo "Verifying core is accessible via workspace symlink..."
+          test -f node_modules/@architectural-discipline/core/dist/index.d.ts && echo "✓ Core types accessible via symlink" || (echo "✗ Core types not accessible via symlink" && exit 1)
+          
+          echo ""
+          echo "Checking CLI can resolve core dependency..."
+          cd packages/cli && node -e "try { require.resolve('@architectural-discipline/core'); console.log('✓ CLI can resolve core'); } catch(e) { console.error('✗ CLI cannot resolve core:', e.message); process.exit(1); }" && cd ../..
+          
+          echo ""
           echo "Building eslint-plugin..."
           npm run build --workspace=@architectural-discipline/eslint-plugin
           
