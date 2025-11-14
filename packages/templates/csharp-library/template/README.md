@@ -40,3 +40,11 @@ architectural-discipline analyze --path .
 4. Use XML documentation comments
 5. Follow SOLID principles
 
+
+
+
+
+
+
+
+

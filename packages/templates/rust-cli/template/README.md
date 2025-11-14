@@ -40,3 +40,11 @@ architectural-discipline analyze --path .
 4. Use clap for argument parsing
 5. Follow Rust best practices
 
+
+
+
+
+
+
+
+

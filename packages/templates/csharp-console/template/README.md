@@ -30,3 +30,11 @@ architectural-discipline analyze --path .
 4. Handle cancellation tokens properly
 5. Use async/await patterns
 
+
+
+
+
+
+
+
+

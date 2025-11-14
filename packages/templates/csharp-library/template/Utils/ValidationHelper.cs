@@ -40,3 +40,11 @@ namespace {{name}}.Utils
     }
 }
 
+
+
+
+
+
+
+
+

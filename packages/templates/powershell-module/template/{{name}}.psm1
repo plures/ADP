@@ -152,3 +152,11 @@ function Set-{{Name}}Config {
 # Export module members
 Export-ModuleMember -Function Get-{{Name}}Data, Set-{{Name}}Config
 
+
+
+
+
+
+
+
+

@@ -41,3 +41,11 @@ architectural-discipline analyze --path .
 4. Document functions with comment-based help
 5. Export only public functions
 
+
+
+
+
+
+
+
+

@@ -39,3 +39,11 @@ architectural-discipline analyze --path .
 4. Use documentation comments
 5. Follow Rust ownership patterns
 
+
+
+
+
+
+
+
+

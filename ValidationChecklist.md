@@ -59,3 +59,6 @@
 - [x] Tag-based publishing enabled (push/release on tags `v*`)
 - [x] Workflow publishes only unpublished package versions
 - [ ] NPM_TOKEN repository secret configured for npm authentication
+- [x] `.changeset` directory initialized and committed
+- [x] Release workflow uses `changesets/action@v1` with `release` and `version` scripts
+- [x] Root `package.json` defines `release` (`changeset publish`) and `version` (`changeset version`) scripts

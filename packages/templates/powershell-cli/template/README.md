@@ -34,3 +34,11 @@ architectural-discipline analyze --path .
 4. Use parameter validation
 5. Provide help documentation
 
+
+
+
+
+
+
+
+

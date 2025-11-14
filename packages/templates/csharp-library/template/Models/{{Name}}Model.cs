@@ -27,3 +27,11 @@ namespace {{name}}.Models
     }
 }
 
+
+
+
+
+
+
+
+
