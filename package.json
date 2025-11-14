@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
+    "build": "npm run build --workspace=@architectural-discipline/core && npm run build --workspace=@architectural-discipline/eslint-plugin && npm run build --workspace=@architectural-discipline/cli && npm run build --workspace=@architectural-discipline/installer",
     "test": "npm run test --workspaces",
     "lint": "npm run lint --workspaces",
     "lint:fix": "npm run lint:fix --workspaces",
