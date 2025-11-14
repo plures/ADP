@@ -1,0 +1,118 @@
+name: Bug Report
+description: Report a bug in ADP
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please provide details to help us fix it.
+        
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear description of the bug
+      placeholder: "When I run X, Y happens instead of Z"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this bug?
+      placeholder: |
+        1. Run command '...'
+        2. With config file '...'
+        3. See error
+    validations:
+      required: true
+      
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should happen?
+      placeholder: "The analysis should..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happens?
+      placeholder: "Instead, it..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Logs
+      description: Paste any relevant error messages or logs
+      render: shell
+      placeholder: "Error: ..."
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      description: Which language were you analyzing?
+      options:
+        - TypeScript
+        - JavaScript
+        - PowerShell
+        - C#
+        - Rust
+        - Other
+    validations:
+      required: true
+      
+  - type: input
+    id: version
+    attributes:
+      label: ADP Version
+      description: "Run: npm list @architectural-discipline/cli"
+      placeholder: "1.0.0"
+    validations:
+      required: true
+      
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js Version
+      description: "Run: node --version"
+      placeholder: "v20.10.0"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+      
+  - type: textarea
+    id: config
+    attributes:
+      label: Configuration
+      description: Your .adp-config.json (if relevant)
+      render: json
+      placeholder: |
+        {
+          "architectural-discipline": {
+            ...
+          }
+        }
+    validations:
+      required: false

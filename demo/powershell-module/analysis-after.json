@@ -1,0 +1,114 @@
+{
+  "fileTypeStats": {},
+  "outliers": [
+    {
+      "file": "src/after/Validation.psm1",
+      "language": "powershell",
+      "fileType": {
+        "category": "module",
+        "subcategory": "src/after/validation.psm1",
+        "expectedSizeRange": [
+          100,
+          500
+        ],
+        "complexityThreshold": 10
+      },
+      "lines": 49,
+      "functions": [
+        {
+          "name": "Test-UserId",
+          "line": 2,
+          "lines": 5,
+          "complexity": 4,
+          "purity": 100,
+          "parameters": 0,
+          "returnType": "object",
+          "sideEffects": []
+        },
+        {
+          "name": "Test-UserName",
+          "line": 8,
+          "lines": 5,
+          "complexity": 4,
+          "purity": 100,
+          "parameters": 0,
+          "returnType": "object",
+          "sideEffects": []
+        },
+        {
+          "name": "Test-UserEmail",
+          "line": 14,
+          "lines": 6,
+          "complexity": 6,
+          "purity": 100,
+          "parameters": 0,
+          "returnType": "object",
+          "sideEffects": []
+        },
+        {
+          "name": "Test-UserAge",
+          "line": 21,
+          "lines": 5,
+          "complexity": 3,
+          "purity": 100,
+          "parameters": 0,
+          "returnType": "object",
+          "sideEffects": []
+        },
+        {
+          "name": "Test-UserRole",
+          "line": 27,
+          "lines": 7,
+          "complexity": 7,
+          "purity": 94,
+          "parameters": 0,
+          "returnType": "object",
+          "sideEffects": []
+        },
+        {
+          "name": "Test-UserData",
+          "line": 35,
+          "lines": 12,
+          "complexity": 3,
+          "purity": 100,
+          "parameters": 0,
+          "returnType": "object",
+          "sideEffects": []
+        }
+      ],
+      "complexity": 22,
+      "purity": 99,
+      "dependencies": [],
+      "responsibilities": [
+        "cmdlet",
+        "parameter-handling"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "file": "src/after/Validation.psm1",
+      "priority": "high",
+      "type": "reduce-complexity",
+      "reason": "Cyclomatic complexity exceeds threshold for module files",
+      "suggestedActions": [
+        "Simplify conditional logic",
+        "Extract complex conditions into named functions",
+        "Use early returns to reduce nesting"
+      ],
+      "estimatedEffort": "medium"
+    }
+  ],
+  "projectHealth": {
+    "overall": 48,
+    "maintainability": 25,
+    "testability": 75,
+    "modularity": 91,
+    "complexity": 0,
+    "trends": {
+      "fileSizeGrowth": 0,
+      "complexityTrend": 0,
+      "purityTrend": 0
+    }
+  }
+}

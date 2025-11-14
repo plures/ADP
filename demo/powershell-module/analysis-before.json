@@ -1,0 +1,104 @@
+{
+  "fileTypeStats": {},
+  "outliers": [
+    {
+      "file": "src/before/UserManagement.psm1",
+      "language": "powershell",
+      "fileType": {
+        "category": "module",
+        "subcategory": "src/before/usermanagement.psm1",
+        "expectedSizeRange": [
+          100,
+          500
+        ],
+        "complexityThreshold": 10
+      },
+      "lines": 157,
+      "functions": [
+        {
+          "name": "Invoke-ComplexUserManagement",
+          "line": 4,
+          "lines": 94,
+          "complexity": 41,
+          "purity": 0,
+          "parameters": 0,
+          "returnType": "object",
+          "sideEffects": [
+            "output",
+            "state-mutation"
+          ]
+        },
+        {
+          "name": "New-UserReport",
+          "line": 99,
+          "lines": 53,
+          "complexity": 24,
+          "purity": 0,
+          "parameters": 0,
+          "returnType": "object",
+          "sideEffects": [
+            "state-mutation",
+            "file-system"
+          ]
+        }
+      ],
+      "complexity": 65,
+      "purity": 0,
+      "dependencies": [],
+      "responsibilities": [
+        "cmdlet",
+        "parameter-handling"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "file": "src/before/UserManagement.psm1",
+      "priority": "medium",
+      "type": "extract-function",
+      "reason": "2 functions exceed recommended size",
+      "suggestedActions": [
+        "Break down large functions into smaller, focused functions",
+        "Extract complex logic into utility functions",
+        "Use composition over large monolithic functions"
+      ],
+      "estimatedEffort": "low"
+    },
+    {
+      "file": "src/before/UserManagement.psm1",
+      "priority": "high",
+      "type": "reduce-complexity",
+      "reason": "Cyclomatic complexity exceeds threshold for module files",
+      "suggestedActions": [
+        "Simplify conditional logic",
+        "Extract complex conditions into named functions",
+        "Use early returns to reduce nesting"
+      ],
+      "estimatedEffort": "medium"
+    },
+    {
+      "file": "src/before/UserManagement.psm1",
+      "priority": "low",
+      "type": "improve-purity",
+      "reason": "Low function purity score indicates many side effects",
+      "suggestedActions": [
+        "Reduce side effects in functions",
+        "Separate pure logic from side effects",
+        "Use functional programming patterns"
+      ],
+      "estimatedEffort": "high"
+    }
+  ],
+  "projectHealth": {
+    "overall": 24,
+    "maintainability": 0,
+    "testability": 0,
+    "modularity": 96,
+    "complexity": 0,
+    "trends": {
+      "fileSizeGrowth": 0,
+      "complexityTrend": 0,
+      "purityTrend": 0
+    }
+  }
+}

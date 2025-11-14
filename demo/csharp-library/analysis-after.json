@@ -1,0 +1,55 @@
+{
+  "fileTypeStats": {},
+  "outliers": [
+    {
+      "file": "src/after/Models.cs",
+      "language": "csharp",
+      "fileType": {
+        "category": "class",
+        "subcategory": "src/after/models.cs",
+        "expectedSizeRange": [
+          50,
+          400
+        ],
+        "complexityThreshold": 10
+      },
+      "lines": 38,
+      "functions": [],
+      "complexity": 2,
+      "purity": 0,
+      "dependencies": [
+        "System",
+        "System.Collections.Generic"
+      ],
+      "responsibilities": [
+        "object-oriented"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "file": "src/after/Models.cs",
+      "priority": "low",
+      "type": "improve-purity",
+      "reason": "Low function purity score indicates many side effects",
+      "suggestedActions": [
+        "Reduce side effects in functions",
+        "Separate pure logic from side effects",
+        "Use functional programming patterns"
+      ],
+      "estimatedEffort": "high"
+    }
+  ],
+  "projectHealth": {
+    "overall": 59,
+    "maintainability": 55,
+    "testability": 50,
+    "modularity": 94,
+    "complexity": 38,
+    "trends": {
+      "fileSizeGrowth": 0,
+      "complexityTrend": 0,
+      "purityTrend": 0
+    }
+  }
+}
