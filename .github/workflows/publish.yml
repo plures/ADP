@@ -1,6 +1,11 @@
 name: Publish to npm
 
 on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
   release:
     types: [created]
   workflow_dispatch:
@@ -72,40 +77,102 @@ jobs:
     permissions:
       contents: read
       id-token: write
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: 20
           registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build core package
-        run: cd packages/core && npm run build
+      - name: Build packages (if present)
+        run: npm run -ws --if-present build
 
-      - name: Build all packages
-        run: npm run build
-
-      - name: Run tests
-        run: npm run test
+      - name: Run tests (non-blocking)
+        run: npm run -ws --if-present test
         continue-on-error: true
 
-      - name: Publish to npm
-        run: npm publish --workspaces --access public
+      - name: Publish unpublished workspaces
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "Publishing only packages that are not yet on npm..."
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const { execSync, spawnSync } = require('child_process');
+          
+          function listWorkspaces() {
+            const root = JSON.parse(fs.readFileSync('package.json','utf8'));
+            const patterns = root.workspaces || [];
+            const dirs = [];
+            for (const pat of patterns) {
+              if (pat.endsWith('/*')) {
+                const base = pat.slice(0, -2);
+                if (fs.existsSync(base)) {
+                  for (const name of fs.readdirSync(base)) {
+                    const pkgPath = path.join(base, name, 'package.json');
+                    if (fs.existsSync(pkgPath)) dirs.push(path.join(base, name));
+                  }
+                }
+              } else if (fs.existsSync(pat)) {
+                const stat = fs.statSync(pat);
+                if (stat.isDirectory()) dirs.push(pat);
+              }
+            }
+            return dirs;
+          }
+          
+          function isPublished(name, version) {
+            try {
+              const out = execSync(`npm view "${name}@${version}" version`, { stdio: ['ignore','pipe','ignore'] }).toString().trim();
+              return out === version;
+            } catch {
+              return false;
+            }
+          }
+          
+          const workspaces = listWorkspaces();
+          let published = 0;
+          for (const ws of workspaces) {
+            const pkgPath = path.join(ws, 'package.json');
+            if (!fs.existsSync(pkgPath)) continue;
+            const pkg = JSON.parse(fs.readFileSync(pkgPath,'utf8'));
+            if (pkg.private) continue;
+            const { name, version } = pkg;
+            if (!name || !version) continue;
+            if (isPublished(name, version)) {
+              console.log(`skip ${name}@${version} (already published)`);
+              continue;
+            }
+            console.log(`publishing ${name}@${version} from ${ws}`);
+            const res = spawnSync('npm', ['publish', '--access', 'public'], { cwd: ws, stdio: 'inherit' });
+            if (res.status !== 0) {
+              console.error(`failed to publish ${name}@${version}`);
+              process.exitCode = res.status || 1;
+            } else {
+              published++;
+            }
+          }
+          if (published === 0) {
+            console.log('No unpublished packages found.');
+          }
+          NODE
 
       - name: Create publication summary
+        if: always()
         run: |
           echo "## 📦 Published Packages" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "The following packages have been published to npm:" >> $GITHUB_STEP_SUMMARY
+          echo "Attempted to publish workspace packages to npm." >> $GITHUB_STEP_SUMMARY
           echo "- @architectural-discipline/core" >> $GITHUB_STEP_SUMMARY
           echo "- @architectural-discipline/cli" >> $GITHUB_STEP_SUMMARY
           echo "- @architectural-discipline/eslint-plugin" >> $GITHUB_STEP_SUMMARY
