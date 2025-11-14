@@ -90,6 +90,7 @@ export class PowerShellAnalyzer implements LanguageAnalyzer {
       'for',
       'foreach',
       'switch',
+      'case',
       'where',
       'until',
       'catch',

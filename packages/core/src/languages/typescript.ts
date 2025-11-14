@@ -37,7 +37,9 @@ export class TypeScriptAnalyzer implements LanguageAnalyzer {
       // Detect function start
       if (
         line.match(/^(export\s+)?(async\s+)?function\s+\w+/) ||
-        line.match(/^(export\s+)?(async\s+)?\w+\s*\([^)]*\)\s*[:=]/)
+        line.match(/^(export\s+)?(async\s+)?\w+\s*\([^)]*\)\s*[:=]/) ||
+        // Variable-assigned arrow function: const name = (args) => { or const name = (args): type => {
+        line.match(/^(export\s+)?(const|let|var)\s+\w+\s*=\s*(async\s+)?\([^)]*\)(?:\s*:\s*[^=]+)?\s*=>\s*\{/)
       ) {
         const startLine = i;
         const signature = line.trim();
@@ -145,7 +147,12 @@ export class TypeScriptAnalyzer implements LanguageAnalyzer {
 
   extractFunctionName(signature: string): string {
     const patterns = [
+      // function declaration
       /function\s+(\w+)/,
+      // variable assigned arrow/function expression: const name = (...) => or const name = (...): type =>
+      /^(?:export\s+)?(?:const|let|var)\s+(\w+)\s*=\s*(?:async\s+)?\([^)]*\)(?:\s*:\s*[^=]+)?\s*=>/,
+      /^(?:export\s+)?(?:const|let|var)\s+(\w+)\s*=\s*(?:async\s+)?function\b/,
+      // method-like pattern at start of line: name(args) := or :
       /(\w+)\s*\([^)]*\)\s*[:=]/,
       /(\w+)\s*\([^)]*\)\s*[:=]\s*async\s+function/,
     ];

@@ -133,14 +133,15 @@ export class RustAnalyzer implements LanguageAnalyzer {
     
     // Rust use statements: use std::io; use crate::module;
     // Also handles: use std::io::{self, Read};
-    const useRegex = /use\s+([\w:{}]+)\s*;/g;
+    const useRegex = /use\s+([^;]+);/g;
     
     let match;
     while ((match = useRegex.exec(content)) !== null) {
-      // Extract the main path from use statement
-      const usePath = match[1].split('::')[0];
-      if (usePath && !dependencies.includes(usePath)) {
-        dependencies.push(usePath);
+      const raw = match[1].trim();
+      const withoutBraces = raw.includes('::{') ? raw.split('::{')[0] : raw;
+      const base = withoutBraces.split('::')[0];
+      if (base && !dependencies.includes(base)) {
+        dependencies.push(base);
       }
     }
 

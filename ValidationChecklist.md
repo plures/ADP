@@ -36,6 +36,7 @@
 - [x] Unit tests for C# analyzer
 - [x] Unit tests for Rust analyzer
 - [x] Unit tests for TypeScript analyzer
+- [x] All analyzer tests passing (fixed arrow function detection, complexity assertions, dependency extraction)
 - [ ] Integration tests for multi-language analysis (can be added with CI/CD setup)
 
 ## Templates
