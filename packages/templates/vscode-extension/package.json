@@ -1,5 +1,5 @@
 {
-  "name": "@architectural-discipline/template-vscode-extension",
+  "name": "@plures-adp/template-vscode-extension",
   "version": "1.0.0",
   "description": "VS Code extension template with architectural discipline",
   "main": "dist/extension.js",
@@ -19,10 +19,10 @@
     "check:architecture": "architectural-discipline analyze"
   },
   "dependencies": {
-    "@architectural-discipline/core": "workspace:*"
+    "@plures-adp/core": "workspace:*"
   },
   "devDependencies": {
-    "@architectural-discipline/eslint-plugin": "workspace:*",
+    "@plures-adp/eslint-plugin": "workspace:*",
     "@types/node": "^20.10.0",
     "@types/vscode": "^1.80.0",
     "@typescript-eslint/eslint-plugin": "^6.13.0",

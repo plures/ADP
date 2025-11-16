@@ -10,7 +10,7 @@ Using npx (no installation required):
 
 ```bash
 # In your project directory
-npx @architectural-discipline/installer install
+npx @plures-adp/installer install
 ```
 
 Or using npm create:
@@ -24,7 +24,7 @@ npm create adp@latest
 1. Download the offline bundle (on a connected machine):
 
 ```bash
-npx @architectural-discipline/installer download-offline
+npx @plures-adp/installer download-offline
 ```
 
 2. Copy the `adp-offline` folder to your air-gapped system
@@ -39,7 +39,7 @@ node install-offline.js
 Or use the installer:
 
 ```bash
-npx @architectural-discipline/installer install --offline
+npx @plures-adp/installer install --offline
 ```
 
 ## 📦 Supported Project Types
@@ -59,7 +59,7 @@ The installer automatically detects and supports:
 ### Install Command
 
 ```bash
-npx @architectural-discipline/installer install [options]
+npx @plures-adp/installer install [options]
 ```
 
 Options:
@@ -72,13 +72,13 @@ Options:
 ### Initialize (Alias)
 
 ```bash
-npx @architectural-discipline/installer init
+npx @plures-adp/installer init
 ```
 
 ### Download Offline Bundle
 
 ```bash
-npx @architectural-discipline/installer download-offline [options]
+npx @plures-adp/installer download-offline [options]
 ```
 
 Options:
@@ -93,9 +93,9 @@ Options:
 
 ### Node.js/TypeScript Projects
 
-- `@architectural-discipline/cli` (dev dependency)
-- `@architectural-discipline/core` (dev dependency)
-- `@architectural-discipline/eslint-plugin` (dev dependency)
+- `@plures-adp/cli` (dev dependency)
+- `@plures-adp/core` (dev dependency)
+- `@plures-adp/eslint-plugin` (dev dependency)
 - Updated `package.json` scripts:
   - `adp:analyze` - Run architecture analysis
   - `adp:recommend` - Get refactoring recommendations
@@ -138,7 +138,7 @@ For environments without internet access:
 
 1. On a connected machine, download the offline bundle:
    ```bash
-   npx @architectural-discipline/installer download-offline -o /path/to/bundle
+   npx @plures-adp/installer download-offline -o /path/to/bundle
    ```
 
 2. The bundle includes:

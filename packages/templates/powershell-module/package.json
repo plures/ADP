@@ -1,5 +1,5 @@
 {
-  "name": "@architectural-discipline/template-powershell-module",
+  "name": "@plures-adp/template-powershell-module",
   "version": "1.0.0",
   "description": "PowerShell module template with architectural discipline",
   "files": [

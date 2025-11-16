@@ -1,5 +1,5 @@
 /**
- * @architectural-discipline/core
+ * @plures-adp/core
  * 
  * Core statistical analysis engine and architectural rule definitions
  * for the Architectural Discipline System.

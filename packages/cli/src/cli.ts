@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * @architectural-discipline/cli
+ * @plures-adp/cli
  * 
  * Command-line interface for architectural discipline analysis
  */
@@ -11,8 +11,8 @@ import { glob } from 'glob';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
-import { ArchitecturalAnalyzer } from '@architectural-discipline/core';
-import type { StatisticalAnalysis, FileMetrics } from '@architectural-discipline/core';
+import { ArchitecturalAnalyzer } from '@plures-adp/core';
+import type { StatisticalAnalysis, FileMetrics } from '@plures-adp/core';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -521,7 +521,7 @@ async function createTypeScriptProject(name: string, targetDir: string, template
       'recommend': 'architectural-discipline recommend',
     },
     devDependencies: {
-      '@architectural-discipline/eslint-plugin': '^1.0.0',
+      '@plures-adp/eslint-plugin': '^1.0.0',
     },
   };
   

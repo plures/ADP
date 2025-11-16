@@ -13,7 +13,7 @@ The easiest way to add ADP to any project:
 cd /path/to/your/project
 
 # Run the installer
-npx @architectural-discipline/installer install
+npx @plures-adp/installer install
 ```
 
 This works with:
@@ -36,13 +36,13 @@ For Node.js/TypeScript projects:
 
 ```bash
 # Using npm
-npm install --save-dev @architectural-discipline/cli @architectural-discipline/core @architectural-discipline/eslint-plugin
+npm install --save-dev @plures-adp/cli @plures-adp/core @plures-adp/eslint-plugin
 
 # Using yarn
-yarn add -D @architectural-discipline/cli @architectural-discipline/core @architectural-discipline/eslint-plugin
+yarn add -D @plures-adp/cli @plures-adp/core @plures-adp/eslint-plugin
 
 # Using pnpm
-pnpm add -D @architectural-discipline/cli @architectural-discipline/core @architectural-discipline/eslint-plugin
+pnpm add -D @plures-adp/cli @plures-adp/core @plures-adp/eslint-plugin
 ```
 
 ### Option 4: Global Installation
@@ -50,7 +50,7 @@ pnpm add -D @architectural-discipline/cli @architectural-discipline/core @archit
 Install the CLI globally:
 
 ```bash
-npm install -g @architectural-discipline/cli
+npm install -g @plures-adp/cli
 ```
 
 Then use it anywhere:
@@ -71,11 +71,11 @@ Add to your `deno.json`:
 ```json
 {
   "tasks": {
-    "adp:analyze": "deno run npm:@architectural-discipline/cli analyze",
-    "adp:recommend": "deno run npm:@architectural-discipline/cli recommend"
+    "adp:analyze": "deno run npm:@plures-adp/cli analyze",
+    "adp:recommend": "deno run npm:@plures-adp/cli recommend"
   },
   "imports": {
-    "@architectural-discipline/cli": "npm:@architectural-discipline/cli@^1.0.0"
+    "@plures-adp/cli": "npm:@plures-adp/cli@^1.0.0"
   }
 }
 ```
@@ -89,7 +89,7 @@ deno task adp:analyze
 ### Method 2: Direct Execution
 
 ```bash
-deno run npm:@architectural-discipline/cli analyze
+deno run npm:@plures-adp/cli analyze
 ```
 
 ## 🔒 Offline Installation (Air-Gapped Environments)
@@ -99,7 +99,7 @@ For systems without internet access:
 ### Step 1: Download Bundle (On Connected Machine)
 
 ```bash
-npx @architectural-discipline/installer download-offline -o adp-bundle
+npx @plures-adp/installer download-offline -o adp-bundle
 ```
 
 This creates a folder with:
@@ -121,7 +121,7 @@ node install-offline.js
 Or use the installer:
 
 ```bash
-npx @architectural-discipline/installer install --offline
+npx @plures-adp/installer install --offline
 ```
 
 ## 📦 Language-Specific Installation
@@ -130,7 +130,7 @@ npx @architectural-discipline/installer install --offline
 
 ```bash
 # Install using the installer
-npx @architectural-discipline/installer install
+npx @plures-adp/installer install
 
 # This creates a PowerShell module at .adp/adp.psm1
 # Import and use:
@@ -142,7 +142,7 @@ Invoke-ADPAnalysis -Path ./src
 
 ```bash
 # Install using the installer
-npx @architectural-discipline/installer install
+npx @plures-adp/installer install
 
 # This creates analysis scripts
 # Run analysis:
@@ -154,7 +154,7 @@ Or integrate with your build:
 ```xml
 <!-- In your .csproj -->
 <Target Name="ADPAnalysis" AfterTargets="Build">
-  <Exec Command="npx @architectural-discipline/cli analyze" />
+  <Exec Command="npx @plures-adp/cli analyze" />
 </Target>
 ```
 
@@ -162,7 +162,7 @@ Or integrate with your build:
 
 ```bash
 # Install using the installer
-npx @architectural-discipline/installer install
+npx @plures-adp/installer install
 
 # This adds Cargo aliases
 # Run analysis:
@@ -177,7 +177,7 @@ If you prefer manual setup:
 ### 1. Install Packages
 
 ```bash
-npm install --save-dev @architectural-discipline/cli @architectural-discipline/core @architectural-discipline/eslint-plugin
+npm install --save-dev @plures-adp/cli @plures-adp/core @plures-adp/eslint-plugin
 ```
 
 ### 2. Create Configuration
@@ -220,14 +220,14 @@ Create `.adp-config.json`:
 Create `eslint.config.js`:
 
 ```javascript
-import architecturalDiscipline from '@architectural-discipline/eslint-plugin';
+import architecturalDiscipline from '@plures-adp/eslint-plugin';
 
 export default [
   architecturalDiscipline.configs.recommended,
   {
     rules: {
-      '@architectural-discipline/max-lines': 'warn',
-      '@architectural-discipline/max-complexity': 'warn',
+      '@plures-adp/max-lines': 'warn',
+      '@plures-adp/max-complexity': 'warn',
     },
   },
 ];

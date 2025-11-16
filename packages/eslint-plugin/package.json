@@ -1,5 +1,5 @@
 {
-  "name": "@architectural-discipline/eslint-plugin",
+  "name": "@plures-adp/eslint-plugin",
   "version": "1.0.0",
   "type": "module",
   "description": "ESLint plugin for architectural discipline rules",
@@ -23,7 +23,7 @@
     "check:architecture": "tsx scripts/check-architecture.ts"
   },
   "dependencies": {
-    "@architectural-discipline/core": "*",
+    "@plures-adp/core": "*",
     "eslint": "^8.54.0"
   },
   "devDependencies": {

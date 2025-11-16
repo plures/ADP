@@ -1,5 +1,5 @@
 {
-  "name": "@architectural-discipline/core",
+  "name": "@plures-adp/core",
   "version": "1.0.0",
   "type": "module",
   "description": "Core statistical analysis engine and architectural rule definitions",

@@ -1,5 +1,5 @@
 {
-  "name": "@architectural-discipline/template-rust-library",
+  "name": "@plures-adp/template-rust-library",
   "version": "1.0.0",
   "description": "Rust library template with architectural discipline",
   "files": [

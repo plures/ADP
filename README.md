@@ -1,9 +1,9 @@
 # Architectural Discipline Package
 
 [![CI](https://github.com/plures/ADP/actions/workflows/ci.yml/badge.svg)](https://github.com/plures/ADP/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/@architectural-discipline/core.svg)](https://www.npmjs.com/package/@architectural-discipline/core)
+[![npm version](https://img.shields.io/npm/v/@plures-adp/core.svg)](https://www.npmjs.com/package/@plures-adp/core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/node/v/@architectural-discipline/core.svg)](https://nodejs.org)
+[![Node.js Version](https://img.shields.io/node/v/@plures-adp/core.svg)](https://nodejs.org)
 
 A comprehensive toolkit for enforcing sustainable software architecture patterns through intelligent analysis, automated refactoring recommendations, and consistent code quality standards.
 
@@ -19,19 +19,19 @@ The Architectural Discipline Package provides a complete solution for maintainin
 
 ### Core Packages
 
-- **`@architectural-discipline/core`** - Statistical analysis engine and rule definitions with multi-language support
-- **`@architectural-discipline/eslint-plugin`** - ESLint plugin for architectural rules (TypeScript/JavaScript)
-- **`@architectural-discipline/cli`** - Command-line interface for analysis and refactoring across all supported languages
+- **`@plures-adp/core`** - Statistical analysis engine and rule definitions with multi-language support
+- **`@plures-adp/eslint-plugin`** - ESLint plugin for architectural rules (TypeScript/JavaScript)
+- **`@plures-adp/cli`** - Command-line interface for analysis and refactoring across all supported languages
 
 ### Project Templates
 
 #### TypeScript/JavaScript Templates
-- **`@architectural-discipline/template-vscode-extension`** - VS Code extension template
-- **`@architectural-discipline/template-web-app`** - Web application template
-- **`@architectural-discipline/template-mobile-app`** - Mobile application template
-- **`@architectural-discipline/template-cli-tool`** - CLI tool template
-- **`@architectural-discipline/template-library`** - Library template
-- **`@architectural-discipline/template-api-service`** - API service template
+- **`@plures-adp/template-vscode-extension`** - VS Code extension template
+- **`@plures-adp/template-web-app`** - Web application template
+- **`@plures-adp/template-mobile-app`** - Mobile application template
+- **`@plures-adp/template-cli-tool`** - CLI tool template
+- **`@plures-adp/template-library`** - Library template
+- **`@plures-adp/template-api-service`** - API service template
 
 #### PowerShell Templates
 - **`powershell-module`** - PowerShell module template (.psm1, .psd1)
@@ -53,7 +53,7 @@ The Architectural Discipline Package provides a complete solution for maintainin
 
 ```bash
 # Using npx (no installation required)
-npx @architectural-discipline/installer install
+npx @plures-adp/installer install
 
 # Or using npm create
 npm create adp@latest
@@ -63,10 +63,10 @@ npm create adp@latest
 
 ```bash
 # Install the CLI globally
-npm install -g @architectural-discipline/cli
+npm install -g @plures-adp/cli
 
 # Or install specific packages
-npm install --save-dev @architectural-discipline/cli @architectural-discipline/core @architectural-discipline/eslint-plugin
+npm install --save-dev @plures-adp/cli @plures-adp/core @plures-adp/eslint-plugin
 ```
 
 **Deno Installation**
@@ -76,7 +76,7 @@ npm install --save-dev @architectural-discipline/cli @architectural-discipline/c
 deno task adp:analyze
 
 # Or run directly
-deno run npm:@architectural-discipline/cli analyze
+deno run npm:@plures-adp/cli analyze
 ```
 
 **Offline Installation (Air-Gapped Environments)**
