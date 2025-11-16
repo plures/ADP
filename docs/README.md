@@ -10,18 +10,18 @@ The Architectural Discipline Package provides a complete solution for maintainin
 
 ### Core Packages
 
-- **`@architectural-discipline/core`** - Statistical analysis engine and rule definitions
-- **`@architectural-discipline/eslint-plugin`** - ESLint plugin for architectural rules
-- **`@architectural-discipline/cli`** - Command-line interface for analysis and refactoring
+- **`@plures-adp/core`** - Statistical analysis engine and rule definitions
+- **`@plures-adp/eslint-plugin`** - ESLint plugin for architectural rules
+- **`@plures-adp/cli`** - Command-line interface for analysis and refactoring
 
 ### Project Templates
 
-- **`@architectural-discipline/template-vscode-extension`** - VS Code extension template
-- **`@architectural-discipline/template-web-app`** - Web application template
-- **`@architectural-discipline/template-mobile-app`** - Mobile application template
-- **`@architectural-discipline/template-cli-tool`** - CLI tool template
-- **`@architectural-discipline/template-library`** - Library template
-- **`@architectural-discipline/template-api-service`** - API service template
+- **`@plures-adp/template-vscode-extension`** - VS Code extension template
+- **`@plures-adp/template-web-app`** - Web application template
+- **`@plures-adp/template-mobile-app`** - Mobile application template
+- **`@plures-adp/template-cli-tool`** - CLI tool template
+- **`@plures-adp/template-library`** - Library template
+- **`@plures-adp/template-api-service`** - API service template
 
 ## 🚀 Quick Start
 
@@ -29,11 +29,11 @@ The Architectural Discipline Package provides a complete solution for maintainin
 
 ```bash
 # Install the CLI globally
-npm install -g @architectural-discipline/cli
+npm install -g @plures-adp/cli
 
 # Or install specific packages
-npm install @architectural-discipline/core
-npm install @architectural-discipline/eslint-plugin
+npm install @plures-adp/core
+npm install @plures-adp/eslint-plugin
 ```
 
 ### Basic Usage
@@ -53,14 +53,14 @@ architectural-discipline create my-project --template web-app
 
 ```javascript
 // eslint.config.js
-import architecturalDiscipline from '@architectural-discipline/eslint-plugin';
+import architecturalDiscipline from '@plures-adp/eslint-plugin';
 
 export default [
   architecturalDiscipline.configs.recommended,
   {
     rules: {
-      '@architectural-discipline/max-lines': 'error',
-      '@architectural-discipline/max-complexity': 'warn',
+      '@plures-adp/max-lines': 'error',
+      '@plures-adp/max-complexity': 'warn',
     }
   }
 ];

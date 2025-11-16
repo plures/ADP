@@ -11,8 +11,8 @@ This implementation addresses all requirements from Issue #1 "ADP Installer and 
 **Requirement:** Support online installation with minimal prerequisites, perhaps just the project's GitHub URL, maybe using npx.
 
 **Implementation:**
-- Created `@architectural-discipline/installer` package
-- Can be run via `npx @architectural-discipline/installer install`
+- Created `@plures-adp/installer` package
+- Can be run via `npx @plures-adp/installer install`
 - Only requires Node.js/npm as prerequisite
 - Automatically detects project type and configures appropriately
 - Works with any project type (Node.js, TypeScript, Deno, PowerShell, C#, Rust, Python, Go)
@@ -20,7 +20,7 @@ This implementation addresses all requirements from Issue #1 "ADP Installer and 
 **Usage:**
 ```bash
 # From any project directory
-npx @architectural-discipline/installer install
+npx @plures-adp/installer install
 ```
 
 ### 2. Deno Deploy Support
@@ -39,7 +39,7 @@ npx @architectural-discipline/installer install
 deno task adp:analyze
 
 # Or directly
-deno run npm:@architectural-discipline/cli analyze
+deno run npm:@plures-adp/cli analyze
 ```
 
 ### 3. Offline Installation Support
@@ -55,7 +55,7 @@ deno run npm:@architectural-discipline/cli analyze
 **Usage:**
 ```bash
 # On connected machine
-npx @architectural-discipline/installer download-offline
+npx @plures-adp/installer download-offline
 
 # On air-gapped system
 cd adp-offline
@@ -82,7 +82,7 @@ node install-offline.js
 
 ## 📦 Packages Created
 
-### @architectural-discipline/installer
+### @plures-adp/installer
 - Universal installer for all project types
 - Project type auto-detection
 - Online and offline installation
@@ -157,7 +157,7 @@ Test Files  1 passed (1)
 ### Quick Start
 ```bash
 # Using npx (recommended)
-npx @architectural-discipline/installer install
+npx @plures-adp/installer install
 ```
 
 ### Project-Specific

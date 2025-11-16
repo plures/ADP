@@ -83,7 +83,7 @@ deno run npm:@plures-adp/cli analyze
 
 ```bash
 # Download bundle on connected machine
-npx @architectural-discipline/installer download-offline
+npx @plures-adp/installer download-offline
 
 # Transfer to air-gapped system and install
 cd adp-offline
@@ -135,14 +135,14 @@ Analysis results include language-specific metrics and recommendations tailored 
 
 ```javascript
 // eslint.config.js
-import architecturalDiscipline from '@architectural-discipline/eslint-plugin';
+import architecturalDiscipline from '@plures-adp/eslint-plugin';
 
 export default [
   architecturalDiscipline.configs.recommended,
   {
     rules: {
-      '@architectural-discipline/max-lines': 'error',
-      '@architectural-discipline/max-complexity': 'warn',
+      '@plures-adp/max-lines': 'error',
+      '@plures-adp/max-complexity': 'warn',
     }
   }
 ];
