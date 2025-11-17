@@ -1,5 +1,5 @@
 {
-  "name": "@architectural-discipline/template-rust-cli",
+  "name": "@plures-adp/template-rust-cli",
   "version": "1.0.0",
   "description": "Rust CLI binary template with architectural discipline",
   "files": [

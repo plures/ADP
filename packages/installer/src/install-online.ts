@@ -85,11 +85,11 @@ async function installForNodeJS(
   }
   
   const packages = options.minimal
-    ? ['@architectural-discipline/cli']
+    ? ['@plures-adp/cli']
     : [
-        '@architectural-discipline/cli',
-        '@architectural-discipline/core',
-        '@architectural-discipline/eslint-plugin',
+        '@plures-adp/cli',
+        '@plures-adp/core',
+        '@plures-adp/eslint-plugin',
       ];
   
   // Install packages
@@ -125,8 +125,8 @@ async function installForDeno(projectPath: string, options: InstallOptions): Pro
     denoConfig.tasks = {};
   }
   
-  denoConfig.tasks['adp:analyze'] = 'deno run npm:@architectural-discipline/cli analyze';
-  denoConfig.tasks['adp:recommend'] = 'deno run npm:@architectural-discipline/cli recommend';
+  denoConfig.tasks['adp:analyze'] = 'deno run npm:@plures-adp/cli analyze';
+  denoConfig.tasks['adp:recommend'] = 'deno run npm:@plures-adp/cli recommend';
   
   await fs.writeJson(denoConfigPath, denoConfig, { spaces: 2 });
   
@@ -152,7 +152,7 @@ function Invoke-ADPAnalysis {
         [string]$Format = "text"
     )
     
-    npx @architectural-discipline/cli analyze --path $Path --format $Format
+    npx @plures-adp/cli analyze --path $Path --format $Format
 }
 
 function Get-ADPRecommendations {
@@ -163,7 +163,7 @@ function Get-ADPRecommendations {
         [string]$Priority
     )
     
-    $cmd = "npx @architectural-discipline/cli recommend --path $Path"
+    $cmd = "npx @plures-adp/cli recommend --path $Path"
     if ($Priority) {
         $cmd += " --priority $Priority"
     }
@@ -192,7 +192,7 @@ async function installForCSharp(projectPath: string, options: InstallOptions): P
   const scriptContent = `#!/usr/bin/env bash
 # ADP Analysis Script for C# projects
 
-npx @architectural-discipline/cli analyze --path . "$@"
+npx @plures-adp/cli analyze --path . "$@"
 `;
   
   const scriptPath = path.join(projectPath, 'adp-analyze.sh');
@@ -213,8 +213,8 @@ async function installForRust(projectPath: string, options: InstallOptions): Pro
     
     if (!cargoContent.includes('[alias]')) {
       cargoContent += '\n\n[alias]\n';
-      cargoContent += 'adp-analyze = "!npx @architectural-discipline/cli analyze"\n';
-      cargoContent += 'adp-recommend = "!npx @architectural-discipline/cli recommend"\n';
+      cargoContent += 'adp-analyze = "!npx @plures-adp/cli analyze"\n';
+      cargoContent += 'adp-recommend = "!npx @plures-adp/cli recommend"\n';
       
       await fs.writeFile(cargoTomlPath, cargoContent);
       console.log(chalk.green('✓ Added ADP aliases to Cargo.toml'));
@@ -253,14 +253,14 @@ async function createESLintConfig(projectPath: string): Promise<void> {
   
   // Only create if it doesn't exist
   if (!(await fs.pathExists(eslintConfigPath))) {
-    const configContent = `import architecturalDiscipline from '@architectural-discipline/eslint-plugin';
+    const configContent = `import architecturalDiscipline from '@plures-adp/eslint-plugin';
 
 export default [
   architecturalDiscipline.configs.recommended,
   {
     rules: {
-      '@architectural-discipline/max-lines': 'warn',
-      '@architectural-discipline/max-complexity': 'warn',
+      '@plures-adp/max-lines': 'warn',
+      '@plures-adp/max-complexity': 'warn',
     },
   },
 ];

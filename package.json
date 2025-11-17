@@ -1,5 +1,5 @@
 {
-  "name": "@architectural-discipline/monorepo",
+  "name": "@plures-adp/monorepo",
   "version": "1.0.0",
   "description": "Intelligent Architectural Discipline System - A comprehensive toolkit for enforcing sustainable software architecture patterns",
   "private": true,
@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspace=@architectural-discipline/core && npm run build --workspace=@architectural-discipline/eslint-plugin && npm run build --workspace=@architectural-discipline/cli && npm run build --workspace=@architectural-discipline/installer",
+    "build": "npm run build --workspace=@plures-adp/core && npm run build --workspace=@plures-adp/eslint-plugin && npm run build --workspace=@plures-adp/cli && npm run build --workspace=@plures-adp/installer",
     "test": "npm run test --workspaces",
     "lint": "npm run lint --workspaces",
     "lint:fix": "npm run lint:fix --workspaces",
@@ -31,7 +31,7 @@
     "vitest": "^1.0.0"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=20.0.0",
     "npm": ">=9.0.0"
   },
   "repository": {

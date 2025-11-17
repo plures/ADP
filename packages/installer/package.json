@@ -1,5 +1,5 @@
 {
-  "name": "@architectural-discipline/installer",
+  "name": "@plures-adp/installer",
   "version": "1.0.0",
   "description": "Installer for adding ADP to any project",
   "type": "module",

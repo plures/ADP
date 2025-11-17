@@ -65,7 +65,7 @@ For manual publishing or when automated workflows are unavailable:
 
 1. **npm Account**: Create an account at [npmjs.com](https://www.npmjs.com/)
 2. **npm Authentication**: Login via CLI: `npm login`
-3. **Organization Access**: Request access to `@architectural-discipline` scope (or use your own scope)
+3. **Organization Access**: Request access to `@plures-adp` scope (or use your own scope)
 4. **Build Successful**: Ensure all packages build without errors
 
 ### Publishing to npm
@@ -156,7 +156,7 @@ npm version prerelease --preid=beta
 npm publish --tag beta --access public
 
 # Install beta version
-npm install @architectural-discipline/cli@beta
+npm install @plures-adp/cli@beta
 ```
 
 ## Deno Compatibility
@@ -165,7 +165,7 @@ ADP packages work with Deno via npm: specifiers out of the box:
 
 ```typescript
 // Deno can import npm packages directly
-import { ArchitecturalAnalyzer } from "npm:@architectural-discipline/core@^1.0.0";
+import { ArchitecturalAnalyzer } from "npm:@plures-adp/core@^1.0.0";
 ```
 
 No special publishing steps needed for Deno support!
@@ -176,21 +176,21 @@ No special publishing steps needed for Deno support!
 
 ```bash
 # Users can install with pnpm
-pnpm add -D @architectural-discipline/cli
+pnpm add -D @plures-adp/cli
 ```
 
 ### Yarn
 
 ```bash
 # Users can install with yarn
-yarn add -D @architectural-discipline/cli
+yarn add -D @plures-adp/cli
 ```
 
 ### bun
 
 ```bash
 # Users can install with bun
-bun add -D @architectural-discipline/cli
+bun add -D @plures-adp/cli
 ```
 
 All these work automatically once published to npm!
@@ -204,7 +204,7 @@ To also publish to GitHub Packages:
 Create `.npmrc` in project root:
 
 ```
-@architectural-discipline:registry=https://npm.pkg.github.com
+@plures-adp:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 ```
 
@@ -265,7 +265,7 @@ mkdir test-install && cd test-install
 npm init -y
 
 # Install published package
-npm install @architectural-discipline/cli
+npm install @plures-adp/cli
 
 # Test it works
 npx architectural-discipline --version
@@ -275,22 +275,22 @@ npx architectural-discipline --version
 
 ```bash
 # Test with pnpm
-pnpm add @architectural-discipline/cli
+pnpm add @plures-adp/cli
 pnpm exec architectural-discipline --version
 
 # Test with yarn
-yarn add @architectural-discipline/cli
+yarn add @plures-adp/cli
 yarn architectural-discipline --version
 
 # Test with Deno
-deno run npm:@architectural-discipline/cli --version
+deno run npm:@plures-adp/cli --version
 ```
 
 ### Test Offline Bundle
 
 ```bash
 # Download offline bundle
-npx @architectural-discipline/installer download-offline
+npx @plures-adp/installer download-offline
 
 # Verify contents
 ls adp-offline/
@@ -304,13 +304,13 @@ If you need to unpublish or deprecate:
 ### Deprecate a Version
 
 ```bash
-npm deprecate @architectural-discipline/cli@1.0.0 "This version has a critical bug, please upgrade to 1.0.1"
+npm deprecate @plures-adp/cli@1.0.0 "This version has a critical bug, please upgrade to 1.0.1"
 ```
 
 ### Unpublish (within 72 hours)
 
 ```bash
-npm unpublish @architectural-discipline/cli@1.0.0
+npm unpublish @plures-adp/cli@1.0.0
 ```
 
 **Note**: Unpublishing is not recommended and only works within 72 hours of publication.
@@ -320,15 +320,15 @@ npm unpublish @architectural-discipline/cli@1.0.0
 ### npm Registry
 
 - **Status**: ✅ Ready to publish
-- **Scope**: `@architectural-discipline`
+- **Scope**: `@plures-adp`
 - **Access**: Public
-- **URL**: https://www.npmjs.com/package/@architectural-discipline/cli
+- **URL**: https://www.npmjs.com/package/@plures-adp/cli
 
 ### Deno Deploy
 
 - **Status**: ✅ Works via npm: specifier
 - **No separate publishing needed**
-- **Users can**: `deno run npm:@architectural-discipline/cli`
+- **Users can**: `deno run npm:@plures-adp/cli`
 
 ### GitHub Packages (Optional)
 

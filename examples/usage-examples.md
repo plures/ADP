@@ -16,7 +16,7 @@ This document provides comprehensive examples of how to use the Architectural Di
 ### Programmatic Analysis
 
 ```typescript
-import { ArchitecturalAnalyzer } from '@architectural-discipline/core';
+import { ArchitecturalAnalyzer } from '@plures-adp/core';
 import * as fs from 'fs';
 
 const analyzer = new ArchitecturalAnalyzer();
@@ -52,7 +52,7 @@ console.log('Recommendations:', recommendations.length);
 ### Statistical Analysis
 
 ```typescript
-import { performStatisticalAnalysis } from '@architectural-discipline/core';
+import { performStatisticalAnalysis } from '@plures-adp/core';
 
 async function analyzeProject() {
   const analysis = await performStatisticalAnalysis();
@@ -82,23 +82,23 @@ async function analyzeProject() {
 
 ```javascript
 // eslint.config.js
-import architecturalDiscipline from '@architectural-discipline/eslint-plugin';
+import architecturalDiscipline from '@plures-adp/eslint-plugin';
 
 export default [
   {
     files: ['src/**/*.ts'],
     plugins: {
-      '@architectural-discipline': architecturalDiscipline,
+      '@plures-adp': architecturalDiscipline,
     },
     rules: {
-      '@architectural-discipline/max-lines': ['error', { 
+      '@plures-adp/max-lines': ['error', { 
         max: 300,
         enableStatisticalAnalysis: true 
       }],
-      '@architectural-discipline/max-lines-per-function': ['error', { 
+      '@plures-adp/max-lines-per-function': ['error', { 
         max: 100 
       }],
-      '@architectural-discipline/max-complexity': ['warn', { 
+      '@plures-adp/max-complexity': ['warn', { 
         max: 10 
       }],
     },
@@ -110,14 +110,14 @@ export default [
 
 ```javascript
 // eslint.config.js
-import architecturalDiscipline from '@architectural-discipline/eslint-plugin';
+import architecturalDiscipline from '@plures-adp/eslint-plugin';
 
 export default [
   architecturalDiscipline.configs.recommended,
   {
     rules: {
       // Override specific rules if needed
-      '@architectural-discipline/max-lines': ['error', { max: 250 }],
+      '@plures-adp/max-lines': ['error', { max: 250 }],
     },
   },
 ];
@@ -127,15 +127,15 @@ export default [
 
 ```javascript
 // eslint.config.js
-import architecturalDiscipline from '@architectural-discipline/eslint-plugin';
+import architecturalDiscipline from '@plures-adp/eslint-plugin';
 
 export default [
   architecturalDiscipline.configs.strict,
   {
     rules: {
       // Additional strict rules
-      '@architectural-discipline/max-lines': ['error', { max: 150 }],
-      '@architectural-discipline/max-complexity': ['error', { max: 6 }],
+      '@plures-adp/max-lines': ['error', { max: 150 }],
+      '@plures-adp/max-complexity': ['error', { max: 6 }],
     },
   },
 ];
@@ -145,29 +145,29 @@ export default [
 
 ```javascript
 // eslint.config.js
-import architecturalDiscipline from '@architectural-discipline/eslint-plugin';
+import architecturalDiscipline from '@plures-adp/eslint-plugin';
 
 export default [
   {
     files: ['src/machines/**/*.ts'],
     plugins: {
-      '@architectural-discipline': architecturalDiscipline,
+      '@plures-adp': architecturalDiscipline,
     },
     rules: {
       // Stricter rules for state machines
-      '@architectural-discipline/max-lines': ['error', { max: 200 }],
-      '@architectural-discipline/max-complexity': ['error', { max: 8 }],
+      '@plures-adp/max-lines': ['error', { max: 200 }],
+      '@plures-adp/max-complexity': ['error', { max: 8 }],
     },
   },
   {
     files: ['src/utils/**/*.ts'],
     plugins: {
-      '@architectural-discipline': architecturalDiscipline,
+      '@plures-adp': architecturalDiscipline,
     },
     rules: {
       // Stricter rules for utilities
-      '@architectural-discipline/max-lines': ['error', { max: 100 }],
-      '@architectural-discipline/max-complexity': ['error', { max: 5 }],
+      '@plures-adp/max-lines': ['error', { max: 100 }],
+      '@plures-adp/max-complexity': ['error', { max: 5 }],
     },
   },
 ];
@@ -265,25 +265,25 @@ my-app/
 
 1. **Install packages**:
 ```bash
-npm install @architectural-discipline/core @architectural-discipline/eslint-plugin
+npm install @plures-adp/core @plures-adp/eslint-plugin
 ```
 
 2. **Update ESLint configuration**:
 ```javascript
 // eslint.config.js
-import architecturalDiscipline from '@architectural-discipline/eslint-plugin';
+import architecturalDiscipline from '@plures-adp/eslint-plugin';
 
 export default [
   // ... existing config
   {
     files: ['src/**/*.ts'],
     plugins: {
-      '@architectural-discipline': architecturalDiscipline,
+      '@plures-adp': architecturalDiscipline,
     },
     rules: {
-      '@architectural-discipline/max-lines': ['warn', { max: 300 }],
-      '@architectural-discipline/max-lines-per-function': ['warn', { max: 100 }],
-      '@architectural-discipline/max-complexity': ['warn', { max: 10 }],
+      '@plures-adp/max-lines': ['warn', { max: 300 }],
+      '@plures-adp/max-lines-per-function': ['warn', { max: 100 }],
+      '@plures-adp/max-complexity': ['warn', { max: 10 }],
     },
   },
 ];
@@ -330,7 +330,7 @@ architectural-discipline recommend --priority high
 ### Custom File Type Patterns
 
 ```typescript
-import { FILE_TYPE_PATTERNS } from '@architectural-discipline/core';
+import { FILE_TYPE_PATTERNS } from '@plures-adp/core';
 
 const customPatterns = {
   ...FILE_TYPE_PATTERNS,
@@ -345,7 +345,7 @@ const customPatterns = {
 ### Custom Analysis Rules
 
 ```typescript
-import { ArchitecturalAnalyzer } from '@architectural-discipline/core';
+import { ArchitecturalAnalyzer } from '@plures-adp/core';
 
 class CustomAnalyzer extends ArchitecturalAnalyzer {
   classifyFileType(filePath: string, content: string) {
@@ -387,7 +387,7 @@ jobs:
         run: npm install
       
       - name: Install architectural discipline CLI
-        run: npm install -g @architectural-discipline/cli
+        run: npm install -g @plures-adp/cli
       
       - name: Run architectural analysis
         run: architectural-discipline analyze --format json --output analysis.json
@@ -425,7 +425,7 @@ jobs:
 ### Health Score Tracking
 
 ```typescript
-import { ArchitecturalAnalyzer } from '@architectural-discipline/core';
+import { ArchitecturalAnalyzer } from '@plures-adp/core';
 
 async function trackHealthScore() {
   const analyzer = new ArchitecturalAnalyzer();

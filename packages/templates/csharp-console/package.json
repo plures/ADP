@@ -1,5 +1,5 @@
 {
-  "name": "@architectural-discipline/template-csharp-console",
+  "name": "@plures-adp/template-csharp-console",
   "version": "1.0.0",
   "description": "C# console application template with architectural discipline",
   "files": [

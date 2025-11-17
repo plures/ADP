@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * @architectural-discipline/installer
+ * @plures-adp/installer
  * 
  * Universal installer for adding ADP to any project type
  */
@@ -121,9 +121,9 @@ program
 
       // Download all required packages
       const packages = [
-        '@architectural-discipline/cli',
-        '@architectural-discipline/core',
-        '@architectural-discipline/eslint-plugin',
+        '@plures-adp/cli',
+        '@plures-adp/core',
+        '@plures-adp/eslint-plugin',
       ];
 
       for (const pkg of packages) {
@@ -163,7 +163,7 @@ function displayNextSteps(projectType: ProjectType): void {
       break;
 
     case 'deno':
-      console.log(chalk.white('  1. Run analysis: deno run npm:@architectural-discipline/cli analyze'));
+      console.log(chalk.white('  1. Run analysis: deno run npm:@plures-adp/cli analyze'));
       console.log(chalk.white('  2. Check deno.json for configured tasks'));
       break;
 
@@ -274,9 +274,9 @@ chmod +x install-offline.js
 
 ## What's Included
 
-- @architectural-discipline/cli
-- @architectural-discipline/core
-- @architectural-discipline/eslint-plugin
+- @plures-adp/cli
+- @plures-adp/core
+- @plures-adp/eslint-plugin
 
 ## Next Steps
 

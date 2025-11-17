@@ -121,7 +121,7 @@ Add these badges to your README to show workflow status:
 
 - Ensure `NPM_TOKEN` secret is set correctly
 - Verify npm token has publish permissions
-- Check that you're a member of the `@architectural-discipline` organization on npm
+- Check that you're a member of the `@plures-adp` organization on npm
 
 ### Build Failures
 
@@ -135,7 +135,7 @@ If you accidentally publish the wrong version:
 
 1. Deprecate the bad version:
    ```bash
-   npm deprecate @architectural-discipline/cli@1.0.0 "Accidental publish, use 1.0.1 instead"
+   npm deprecate @plures-adp/cli@1.0.0 "Accidental publish, use 1.0.1 instead"
    ```
 
 2. Publish the correct version with a new release

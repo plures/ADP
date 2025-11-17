@@ -1,12 +1,12 @@
 /**
- * @architectural-discipline/eslint-plugin
+ * @plures-adp/eslint-plugin
  * 
  * ESLint plugin for architectural discipline rules
  */
 
 import { ESLint } from 'eslint';
-import { ArchitecturalAnalyzer, FILE_TYPE_PATTERNS } from '@architectural-discipline/core';
-import type { FileMetrics, FileType } from '@architectural-discipline/core';
+import { ArchitecturalAnalyzer, FILE_TYPE_PATTERNS } from '@plures-adp/core';
+import type { FileMetrics, FileType } from '@plures-adp/core';
 
 export interface ArchitecturalRuleOptions {
   maxLines?: number;
@@ -315,19 +315,19 @@ export default {
   },
   configs: {
     recommended: {
-      plugins: ['@architectural-discipline'],
+      plugins: ['@plures-adp'],
       rules: {
-        '@architectural-discipline/max-lines': ['error', { max: 300, enableStatisticalAnalysis: true }],
-        '@architectural-discipline/max-lines-per-function': ['error', { max: 100 }],
-        '@architectural-discipline/max-complexity': ['warn', { max: 10 }],
+        '@plures-adp/max-lines': ['error', { max: 300, enableStatisticalAnalysis: true }],
+        '@plures-adp/max-lines-per-function': ['error', { max: 100 }],
+        '@plures-adp/max-complexity': ['warn', { max: 10 }],
       },
     },
     strict: {
-      plugins: ['@architectural-discipline'],
+      plugins: ['@plures-adp'],
       rules: {
-        '@architectural-discipline/max-lines': ['error', { max: 200, enableStatisticalAnalysis: true }],
-        '@architectural-discipline/max-lines-per-function': ['error', { max: 50 }],
-        '@architectural-discipline/max-complexity': ['error', { max: 8 }],
+        '@plures-adp/max-lines': ['error', { max: 200, enableStatisticalAnalysis: true }],
+        '@plures-adp/max-lines-per-function': ['error', { max: 50 }],
+        '@plures-adp/max-complexity': ['error', { max: 8 }],
       },
     },
   },

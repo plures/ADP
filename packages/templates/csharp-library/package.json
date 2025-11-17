@@ -1,5 +1,5 @@
 {
-  "name": "@architectural-discipline/template-csharp-library",
+  "name": "@plures-adp/template-csharp-library",
   "version": "1.0.0",
   "description": "C# class library template with architectural discipline",
   "files": [

@@ -167,7 +167,7 @@ Add to your CI pipeline:
 ```yaml
 - name: Check Architecture
   run: |
-    npm install -g @architectural-discipline/cli
+    npm install -g @plures-adp/cli
     architectural-discipline analyze --path src --format json
 ```
 
