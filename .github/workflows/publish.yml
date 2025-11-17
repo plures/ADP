@@ -176,10 +176,10 @@ jobs:
           echo "## 📦 Published Packages" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Attempted to publish workspace packages to npm." >> $GITHUB_STEP_SUMMARY
-          echo "- @architectural-discipline/core" >> $GITHUB_STEP_SUMMARY
-          echo "- @architectural-discipline/cli" >> $GITHUB_STEP_SUMMARY
-          echo "- @architectural-discipline/eslint-plugin" >> $GITHUB_STEP_SUMMARY
-          echo "- @architectural-discipline/installer" >> $GITHUB_STEP_SUMMARY
+          echo "- @plures-adp/core" >> $GITHUB_STEP_SUMMARY
+          echo "- @plures-adp/cli" >> $GITHUB_STEP_SUMMARY
+          echo "- @plures-adp/eslint-plugin" >> $GITHUB_STEP_SUMMARY
+          echo "- @plures-adp/installer" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           if [ "${{ github.event_name }}" == "release" ]; then
             echo "Release: ${{ github.event.release.tag_name }}" >> $GITHUB_STEP_SUMMARY

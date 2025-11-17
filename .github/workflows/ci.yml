@@ -47,7 +47,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [20.x, latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -68,10 +68,10 @@ jobs:
       - name: Verify workspace setup
         run: |
           echo "Checking workspace symlinks..."
-          ls -la node_modules/@architectural-discipline/ || echo "No workspace symlinks found"
+          ls -la node_modules/@plures-adp/ || echo "No workspace symlinks found"
           echo ""
           echo "Verifying core symlink target..."
-          ls -la node_modules/@architectural-discipline/core || echo "Core symlink broken"
+          ls -la node_modules/@plures-adp/core || echo "Core symlink broken"
           echo ""
           echo "Checking if core package exists..."
           test -d packages/core && echo "✓ Core package exists" || echo "✗ Core package missing"
@@ -89,7 +89,7 @@ jobs:
         run: |
           # Build packages in dependency order
           echo "Building core package..."
-          npm run build --workspace=@architectural-discipline/core
+          npm run build --workspace=@plures-adp/core
           
           echo "Verifying core build output..."
           test -f packages/core/dist/index.js && echo "✓ Core JS built" || (echo "✗ Core JS missing" && exit 1)
@@ -97,21 +97,21 @@ jobs:
           
           echo ""
           echo "Verifying core is accessible via workspace symlink..."
-          test -f node_modules/@architectural-discipline/core/dist/index.d.ts && echo "✓ Core types accessible via symlink" || (echo "✗ Core types not accessible via symlink" && exit 1)
+          test -f node_modules/@plures-adp/core/dist/index.d.ts && echo "✓ Core types accessible via symlink" || (echo "✗ Core types not accessible via symlink" && exit 1)
           
           echo ""
           echo "Checking CLI can resolve core dependency..."
-          cd packages/cli && node -e "try { require.resolve('@architectural-discipline/core'); console.log('✓ CLI can resolve core'); } catch(e) { console.error('✗ CLI cannot resolve core:', e.message); process.exit(1); }" && cd ../..
+          cd packages/cli && node -e "try { require.resolve('@plures-adp/core'); console.log('✓ CLI can resolve core'); } catch(e) { console.error('✗ CLI cannot resolve core:', e.message); process.exit(1); }" && cd ../..
           
           echo ""
           echo "Building eslint-plugin..."
-          npm run build --workspace=@architectural-discipline/eslint-plugin
+          npm run build --workspace=@plures-adp/eslint-plugin
           
           echo "Building CLI..."
-          npm run build --workspace=@architectural-discipline/cli
+          npm run build --workspace=@plures-adp/cli
           
           echo "Building installer..."
-          npm run build --workspace=@architectural-discipline/installer || echo "⚠️  Installer build failed (known issue with missing dependencies)"
+          npm run build --workspace=@plures-adp/installer || echo "⚠️  Installer build failed (known issue with missing dependencies)"
 
       - name: Run tests
         run: npm run test
@@ -218,7 +218,7 @@ jobs:
       - name: Test Deno compatibility
         run: |
           echo "Testing Deno can run ADP CLI..."
-          deno run --allow-read --allow-write npm:@architectural-discipline/cli --help || echo "⚠️  Deno support needs work"
+          deno run --allow-read --allow-write npm:@plures-adp/cli --help || echo "⚠️  Deno support needs work"
         continue-on-error: true
 
   security:
