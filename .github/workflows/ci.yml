@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: 'lts/*'
 
       - name: Validate .adp-config.json schema
         run: |
@@ -47,7 +47,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, latest]
+        node-version: [lts/*]
 
     steps:
       - uses: actions/checkout@v4
@@ -173,7 +173,7 @@ jobs:
           " || echo "⚠️  SARIF conversion failed"
 
       - name: Upload SARIF to GitHub Security
-        if: steps.arch-check.outputs.analysis_exists == 'true' && github.event_name == 'push' && matrix.node-version == '20.x'
+        if: steps.arch-check.outputs.analysis_exists == 'true' && github.event_name == 'push' && matrix.node-version == 'lts/*'
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: architectural-analysis.sarif
@@ -181,7 +181,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload architectural analysis artifact
-        if: steps.arch-check.outputs.analysis_exists == 'true' && matrix.node-version == '20.x'
+        if: steps.arch-check.outputs.analysis_exists == 'true' && matrix.node-version == 'lts/*'
         uses: actions/upload-artifact@v4
         with:
           name: architectural-analysis
@@ -207,7 +207,7 @@ jobs:
       - name: Setup Node.js for build
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: 'lts/*'
           cache: 'npm'
 
       - name: Install dependencies and build
@@ -233,7 +233,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: 'lts/*'
           cache: 'npm'
 
       - name: Install dependencies
