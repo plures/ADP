@@ -1,6 +1,6 @@
 {
   "name": "@plures-adp/monorepo",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Intelligent Architectural Discipline System - A comprehensive toolkit for enforcing sustainable software architecture patterns",
   "private": true,
   "workspaces": [
