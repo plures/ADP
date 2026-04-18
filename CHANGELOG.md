@@ -1,3 +1,7 @@
+## [1.2.0] — 2026-04-18
+
+- feat(lifecycle v12): auto-release when milestone completes (6a525d0)
+
 # Changelog
 
 ## [1.1.0] — 2026-04-18
