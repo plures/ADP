@@ -1,6 +1,6 @@
 {
   "name": "@plures-adp/template-powershell-module",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "PowerShell module template with architectural discipline",
   "files": [
     "template/**/*",
@@ -26,12 +26,3 @@
     "registry": "https://registry.npmjs.org/"
   }
 }
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,6 @@
 {
   "name": "adp-demo-typescript-service",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "Demo TypeScript service showing ADP analysis workflow",
   "type": "module",
   "private": true,

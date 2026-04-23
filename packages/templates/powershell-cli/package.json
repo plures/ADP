@@ -1,6 +1,6 @@
 {
   "name": "@plures-adp/template-powershell-cli",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "PowerShell CLI script template with architectural discipline",
   "files": [
     "template/**/*",
@@ -27,12 +27,3 @@
     "registry": "https://registry.npmjs.org/"
   }
 }
-
-
-
-
-
-
-
-
-

@@ -1,3 +1,8 @@
+## [1.3.0] — 2026-04-23
+
+- feat(release): add target_version input for milestone-driven releases (6e432c5)
+- feat(lifecycle): milestone-close triggers roadmap-aware release (ff2f827)
+
 ## [1.2.0] — 2026-04-18
 
 - feat(lifecycle v12): auto-release when milestone completes (6a525d0)
