@@ -1,3 +1,9 @@
+## [1.3.1] — 2026-05-11
+
+- refactor: replace inline lifecycle with reusable workflow call (bb3e918)
+- docs: refresh ROADMAP.md with OASIS strategic alignment (a4688da)
+- docs: update copilot-instructions with praxis, design-dojo, automation rules (f64e31e)
+
 ## [1.3.0] — 2026-04-23
 
 - feat(release): add target_version input for milestone-driven releases (6e432c5)
