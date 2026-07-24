@@ -13,5 +13,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "composite": true
-  }
+  },
+  "include": ["packages/*/src/**/*.ts"],
+  "exclude": ["node_modules", "packages/*/dist", "examples", "demo"]
 }
