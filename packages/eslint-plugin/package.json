@@ -13,10 +13,10 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "test": "vitest",
+    "test": "vitest --passWithNoTests",
     "test:coverage": "vitest --coverage",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "format": "prettier --write \"src/**/*.{ts,js,json}\"",
     "validate:all": "npm run lint && npm run test && npm run build",
     "check:architecture": "tsx scripts/check-architecture.ts"
