@@ -345,6 +345,14 @@ jobs:
 **Traditional Tools:** Single language focus  
 **ADP:** Multi-language architectural consistency
 
+## Running Tests
+
+Run the workspace test script from the repository root:
+
+```bash
+npm run test --workspaces
+```
+
 ## 📚 Documentation
 
 ### Getting Started
