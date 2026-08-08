@@ -22,7 +22,7 @@
     "check:architecture": "tsx scripts/check-architecture.ts"
   },
   "dependencies": {
-    "@plures/praxis": "^2.4.39",
+    "@plures/praxis": "~2.4.39",
     "typescript": "^5.3.0"
   },
   "devDependencies": {
