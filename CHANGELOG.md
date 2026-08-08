@@ -1,3 +1,12 @@
+## [1.4.0] — 2026-08-08
+
+- feat: Adopt @plures/praxis for declarative logic management (#17) (36dda11)
+- docs: document workspace test command (598b810)
+- chore: delegate dependabot-auto-merge.yml to org reusable template (#16) (8e06f4d)
+- ci(release): trigger release on merge to main (#15) (a14b370)
+- ci: add security-aware Dependabot auto-merge workflow (org backfill) (c4ce0f1)
+- ci: change release trigger from push-to-main to tag-only (afaf792)
+
 ## [1.3.1] — 2026-05-11
 
 - refactor: replace inline lifecycle with reusable workflow call (bb3e918)
