@@ -631,3 +631,17 @@ export class ArchitecturalAnalyzer implements LanguageAnalyzer {
 export * from './types.js';
 export { detectLanguage, getLanguageAnalyzer, getAllAnalyzers } from './languages/index.js';
 export { TypeScriptAnalyzer, PowerShellAnalyzer, CSharpAnalyzer, RustAnalyzer } from './languages/index.js';
+
+// Re-export Praxis modules for declarative logic management
+export {
+  adpModules,
+  patternDetectionModule,
+  refactoringPolicyModule,
+  complianceModule,
+} from './praxis/index.js';
+export type {
+  ADPContext,
+  PatternDetectionPayload,
+  RefactoringPolicyPayload,
+  CompliancePayload,
+} from './praxis/index.js';
